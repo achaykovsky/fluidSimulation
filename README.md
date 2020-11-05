@@ -11,7 +11,8 @@
 
 
 # SPH Summary
-The summary is based on the article that is attached [here](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
+The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
+
 SPH is an interpolation method for particle systems. With SPH, field quantities that are only defined at discrete particle locations can be evaluated anywhere in space.
 SPH distributes quantities in a local neighborhood of each particle using radial symmetrical smoothing kernels.
 According to SPH, a scalar quantity A is interpolated at location r by a weighted sum of contributions from all particles:
