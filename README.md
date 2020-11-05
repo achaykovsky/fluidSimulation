@@ -21,6 +21,7 @@ According to SPH, a scalar quantity A is interpolated at location r by a weighte
 where j iterates over all particles, mj is the mass of particle j, rj its position, ρj the density and Aj the field quantity at rj.
 The function W(r,h) is called the smoothing kernel with core radius h.
 To calculate the gradient of it, we apply it the same equation on all axis.
+
 ![2](https://user-images.githubusercontent.com/49001453/98284458-d34e7300-1fa9-11eb-9d9e-bc9ff599c8db.png)
 
 Each particle i represents a certain volume Vi = mi/ρi.
