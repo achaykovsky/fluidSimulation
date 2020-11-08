@@ -59,3 +59,16 @@ The pressure can be computed via the ideal gas state equation.
 ![8](https://user-images.githubusercontent.com/49001453/98286435-af406100-1fac-11eb-9ba9-eaea6128dd90.png)
 
 In our case, k will be a fluid constant and ρ0 is the rest density.
+
+For the computation of common kernel forces we used this formula:
+
+![17 - W - 1](https://user-images.githubusercontent.com/49001453/98481255-a8f6f280-2201-11eb-9899-e8347fb2cf3f.PNG)
+
+For the computation of viscosity forces we used this formula:
+
+![18 - W - 2](https://user-images.githubusercontent.com/49001453/98481271-c2983a00-2201-11eb-97c4-0a782cc98f22.PNG)
+
+As particles get very close to each other, the repulsion force vanishes because the gradient of the kernel approaches zero at the center. Desbrun solves
+this problem by using a spiky kernel with a non vanishing gradient near the center. For pressure computations I use Debrun's spiky kernel:
+
+![19 - W - 3](https://user-images.githubusercontent.com/49001453/98481277-ce83fc00-2201-11eb-9be0-f60f277b5bfc.PNG)
