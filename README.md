@@ -7,8 +7,11 @@
 
 ## Second Week:
 1. Made a summary of SPH based on the article attached [here](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
-2. Started the particle class.
+2. Started the particle class. Implemented the basics: variables and getters/setters.
 
+## Third Week:
+1. Added some details to the summary
+2. Started the forces class. Implemented the constants and the forces: pressure and viscosity (Working on it and haven't been commited yet).
 
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
