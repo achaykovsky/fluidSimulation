@@ -1,17 +1,18 @@
 # Fluid Simulation, using SPH technique
 ## First Week: 
-1. Started a repo.
-2. Read background physics material
+1. Started a repository.
+2. Read background physics material.
 3. Watched a few lectures about SPH.  [Part I](https://www.youtube.com/watch?v=tAXHCAEgSuE&ab_channel=MonashAstro) [Part II](https://www.youtube.com/watch?v=OTlygbegQT4&ab_channel=MonashAstro)
 4. Studied basic features and viewed tutorials of Processing.
 
 ## Second Week:
-1. Made a summary of SPH based on the article attached [here](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
+1. Made a summary of SPH based on the article attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
 2. Started the particle class. Implemented the basics: variables and getters/setters.
 
 ## Third Week:
-1. Added some details to the summary
-2. Started the forces class. Implemented the constants and the forces: pressure and viscosity (Working on it and haven't been commited yet).
+1. Added some details to the summary.
+2. Updated some properties of the paticle class.
+3. Started the forces class. Implemented the constants and the forces: pressure and viscosity (Working on it and haven't been commited yet).
 
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
