@@ -14,6 +14,10 @@
 2. Updated some properties of the paticle class.
 3. Started the forces class. Implemented the constants and the forces: pressure and viscosity (Working on it and haven't been commited yet).
 
+## Fourth Week:
+1. Added the basic GUI.
+2. Updated the particle class.
+
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
 
