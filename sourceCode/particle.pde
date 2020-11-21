@@ -3,6 +3,7 @@ class Particle
     float r;
     float xPos;
     float yPos;
+    float velocity0 = 0;
     float velocity;
     float mass;
     float density;
@@ -24,6 +25,7 @@ class Particle
     this.pressure = 0;
     this.k = _k;
     //this.velocity = _velocity;
+    //this.velocity = _velocity0;
   }
 
   //empty c'tor
@@ -38,74 +40,79 @@ class Particle
     this.density = 0;
   }
 
-  //getters
-  float getXPos()
-  {
-    return xPos;
-  }
+    //getters
+    float getXPos()
+    {
+      return xPos;
+    }
+    
+    float getYPos() 
+    {
+      return yPos;
+    }
+    
+    float getMass()
+    {
+      return mass;
+    }
+    
+    float getViscosity()
+    {
+      return viscosity;
+    }
+    
+    float getDensity()
+    {
+      return density;
+    }
+    
+    float getPressure()
+    {
+      return pressure;
+    }
+    
+    float getVelocity() 
+    {
+      return velocity;
+    }
+    
+    
+    //setters
+    void setX(float _xPos) 
+    {
+      xPos = _xPos;
+    }
+    
+    void setY(float _yPos) 
+    {
+      yPos = _yPos;
+    }
+    
+    void setMass(float _mass)
+    {
+      mass = _mass;
+    }
+    
+    void setDensity(float _density)
+    {
+      density = _density;
+    }
+    
+    void setVelocity(float _velocity) 
+    {
+    velocity = _velocity;
+    }
+    
+    void setVelocity0(float _velocity0) 
+    {
+    velocity0 = _velocity0;
+    }
   
-  float getYPos() 
-  {
-    return yPos;
-  }
-  
-  float getMass()
-  {
-    return mass;
-  }
-  
-  float getViscosity()
-  {
-    return viscosity;
-  }
-  
-  float getDensity()
-  {
-    return density;
-  }
-  
-  float getPressure()
-  {
-    return pressure;
-  }
-  
-  float getVelocity() 
-  {
-    return velocity;
-  }
-  
-  
-  //setters
-  void setX(float _xPos) 
-  {
-    xPos = _xPos;
-  }
-  
-  void setY(float _yPos) 
-  {
-    yPos = _yPos;
-  }
-  
-  void setMass(float _mass)
-  {
-    mass = _mass;
-  }
-  
-  void setDensity(float _density)
-  {
-    density = _density;
-  }
-  
-  void setVelocity(float _velocity) 
-  {
-  velocity = _velocity;
-  }
-
-  //rest density will be updated from the GUI
-  void setPressure() 
-  {
-    pressure = k * (density - restDensity);
-  }
+    //rest density will be updated from the GUI
+    void setPressure() 
+    {
+      pressure = k * (density - restDensity);
+    }
   
   
   
