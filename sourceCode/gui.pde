@@ -38,9 +38,9 @@ public void txtParticlesNum_change(GTextField source, GEvent event) { //_CODE_:t
   println("txtParticlesNum - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:txtParticlesNum:283906:
 
-public void textTimeStep_change(GTextField source, GEvent event) { //_CODE_:textTimeStep:694139:
+public void txtTimeStep_change(GTextField source, GEvent event) { //_CODE_:txtTimeStep:694139:
   println("textTimeStep - GTextField >> GEvent." + event + " @ " + millis());
-} //_CODE_:textTimeStep:694139:
+} //_CODE_:txtTimeStep:694139:
 
 
 
@@ -122,13 +122,10 @@ public void createGUI(){
   txtParticlesNum.setPromptText("Number of Particles");
   txtParticlesNum.setOpaque(false);
   txtParticlesNum.addEventHandler(this, "txtParticlesNum_change");
-  textTimeStep = new GTextField(this, 47, 270, 120, 30, G4P.SCROLLBARS_NONE);
-  textTimeStep.setPromptText("Time Step");
-  textTimeStep.setOpaque(true);
-  textTimeStep.addEventHandler(this, "textTimeStep_change");
-  lblHeader.setFont(new Font("Arial", Font.PLAIN, 30));
-  lblParticleOptions.setFont(new Font("Arial", Font.PLAIN, 20));
-  lblFluidOptions.setFont(new Font("Arial", Font.PLAIN, 20));
+  txtTimeStep = new GTextField(this, 47, 270, 120, 30, G4P.SCROLLBARS_NONE);
+  txtTimeStep.setPromptText("Time Step");
+  txtTimeStep.setOpaque(true);
+  txtTimeStep.addEventHandler(this, "txtTimeStep_change");
 }
 
 // Variable declarations 
@@ -146,4 +143,4 @@ GLabel lblParticleOptions;
 GLabel lblFluidOptions; 
 GButton btnUpdate; 
 GTextField txtParticlesNum; 
-GTextField textTimeStep; 
+GTextField txtTimeStep; 
