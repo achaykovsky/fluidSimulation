@@ -18,6 +18,12 @@
 1. Added the basic GUI.
 2. Updated the particle class.
 
+## Fifth Week:
+1. Updated the GUI.
+2. Added acceleration to the particle class.
+3. Added the basics for fluid the class.
+4. Added the forces class (Calculations of pressure and viscosity using SPH Kernels).
+
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
 
