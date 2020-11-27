@@ -1,6 +1,6 @@
 class Forces
 {
-    float h = 0;//h = kernelRadius
+    float h = 0;//h smoothing kernel radius
     float hSquared = 0;
     float spikyConst = 0;
     float poly6Const = 0;

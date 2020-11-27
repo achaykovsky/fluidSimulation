@@ -21,43 +21,41 @@ public void mass_change(GSlider source, GEvent event) { //_CODE_:sliderMass:6197
   
 } //_CODE_:sliderMass:619737:
 
-public void restDensity_change(GSlider source, GEvent event) 
-{ //_CODE_:sliderRestDensity:745241:
+public void restDensity_change(GSlider source, GEvent event) { //_CODE_:sliderRestDensity:745241:
   println("sliderRestDensity - GSlider >> GEvent." + event + " @ " + millis());
     float newRestDensity = source.getValueF();
 } //_CODE_:sliderRestDensity:745241:
 
-public void k_change(GSlider source, GEvent event) 
-{ //_CODE_:sliderK:474059:
+public void k_change(GSlider source, GEvent event) { //_CODE_:sliderK:474059:
   println("sliderK - GSlider >> GEvent." + event + " @ " + millis());
   float newK = source.getValueF();  
 } //_CODE_:sliderK:474059:
 
-public void fluidViscosity_change(GSlider source, GEvent event) 
-{ //_CODE_:sliderFluidViscosity:680732:
+public void fluidViscosity_change(GSlider source, GEvent event) { //_CODE_:sliderFluidViscosity:680732:
   println("sliderFluidViscosity - GSlider >> GEvent." + event + " @ " + millis());
     float newFluidViscosity = source.getValueF();  
 } //_CODE_:sliderFluidViscosity:680732:
 
-public void update_click(GButton source, GEvent event) 
-{ //_CODE_:btnUpdate:391167:
+public void update_click(GButton source, GEvent event) { //_CODE_:btnUpdate:391167:
   println("btnUpdate - GButton >> GEvent." + event + " @ " + millis());
-    water.setParticlesNumber(newParticlesNum);
-    println("newParticlesNum" + newParticlesNum);
+  int newParticlesNum = Integer.parseInt(txtParticlesNum.getText());
+  water.setParticlesNumber(newParticlesNum);
+  float newStepTime = Integer.parseInt(txtStepTime.getText());
+  float newMass = sliderMass.getValueF();
+  float newRestDensity = sliderRestDensity.getValueF();
+  float newK = sliderK.getValueF();
+  float newFluidViscosity = sliderFluidViscosity.getValueF();  
+   
 } //_CODE_:btnUpdate:391167:
 
-public void txtParticlesNum_change(GTextField source, GEvent event) 
-{ //_CODE_:txtParticlesNum:283906:
+public void txtParticlesNum_change(GTextField source, GEvent event) { //_CODE_:txtParticlesNum:283906:
   println("txtParticlesNum - GTextField >> GEvent." + event + " @ " + millis());
-  newParticlesNum = source.getValueI();
-  //water.setParticlesNumber(newParticlesNum);
 } //_CODE_:txtParticlesNum:283906:
 
-public void txtTimeStep_change(GTextField source, GEvent event) 
-{ //_CODE_:txtTimeStep:694139:
+public void txtStepTime_change(GTextField source, GEvent event) { //_CODE_:txtStepTime:694139:
   println("textTimeStep - GTextField >> GEvent." + event + " @ " + millis());
-  float newTimeStep = source.getValueF();
-} //_CODE_:txtTimeStep:694139:
+  //float newTimeStep = source.getValueF();
+} //_CODE_:txtStepTime:694139:
 
 
 
@@ -80,7 +78,7 @@ public void createGUI(){
   lblK.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   lblK.setText("k");
   lblK.setOpaque(false);
-  lblRestDensity = new GLabel(this, 364, 325, 80, 20);
+  lblRestDensity = new GLabel(this, 334, 320, 141, 34);
   lblRestDensity.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   lblRestDensity.setText("Rest Density");
   lblRestDensity.setOpaque(false);
@@ -123,7 +121,7 @@ public void createGUI(){
   sliderFluidViscosity.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
   sliderFluidViscosity.setOpaque(false);
   sliderFluidViscosity.addEventHandler(this, "fluidViscosity_change");
-  lblParticleOptions = new GLabel(this, 347, 111, 144, 75);
+  lblParticleOptions = new GLabel(this, 301, 111, 194, 75);
   lblParticleOptions.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   lblParticleOptions.setText("Particle Options");
   lblParticleOptions.setOpaque(false);
@@ -139,10 +137,10 @@ public void createGUI(){
   txtParticlesNum.setPromptText("Number of Particles");
   txtParticlesNum.setOpaque(false);
   txtParticlesNum.addEventHandler(this, "txtParticlesNum_change");
-  txtTimeStep = new GTextField(this, 47, 270, 120, 30, G4P.SCROLLBARS_NONE);
-  txtTimeStep.setPromptText("Time Step");
-  txtTimeStep.setOpaque(true);
-  txtTimeStep.addEventHandler(this, "txtTimeStep_change");
+  txtStepTime = new GTextField(this, 47, 270, 120, 30, G4P.SCROLLBARS_NONE);
+  txtStepTime.setPromptText("Time Step");
+  txtStepTime.setOpaque(true);
+  txtStepTime.addEventHandler(this, "txtStepTime_change");
 }
 
 // Variable declarations 
@@ -160,4 +158,4 @@ GLabel lblParticleOptions;
 GLabel lblFluidOptions; 
 GButton btnUpdate; 
 GTextField txtParticlesNum; 
-GTextField txtTimeStep; 
+GTextField txtStepTime; 

@@ -9,7 +9,7 @@ class Particle
     float density;
     float viscosity;
     float k; //fluid constant
-    float fluidViscosity;// s
+    float fluidViscosity;
     float pressure;
     color colour;
     float restDensity;
@@ -19,6 +19,7 @@ class Particle
     float yForce = 0;
     float x;
     float y;
+    float dt;
   
   
   Particle(float _xPos, float _yPos, float _mass, float _viscosity, float _k)
