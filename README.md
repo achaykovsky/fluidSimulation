@@ -12,7 +12,7 @@
 ## Third Week:
 1. Added some details to the summary.
 2. Updated some properties of the paticle class.
-3. Started the forces class. Implemented the constants and the forces: pressure and viscosity (Working on it and haven't been commited yet).
+3. Started the forces class. Implemented the constants and the forces: pressure and viscosity.
 
 ## Fourth Week:
 1. Added the basic GUI.
