@@ -5,7 +5,7 @@ GWindow Screen;
 final int N = 256;
 
 //make fluid
-//Fluid fluid;
+final Fluid water = new Fluid();
 
 void settings() 
 {
@@ -21,9 +21,3 @@ void draw() {
   background(230);
 }
  
- /*
-public void MainWindow(PApplet app, GWinData data) {
-  app.background(255);
-  app.strokeWeight(2);
-  app.stroke(0);
-}*/
