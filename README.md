@@ -1,4 +1,5 @@
 # Fluid Simulation, using SPH technique
+
 ## First Week: 
 1. Started a repository.
 2. Read background physics material.
@@ -21,8 +22,16 @@
 ## Fifth Week:
 1. Updated the GUI.
 2. Added acceleration to the particle class.
-3. Added the basics for fluid the class.
+3. Added the basics for the fluid class.
 4. Added the forces class (Calculations of pressure and viscosity using SPH Kernels).
+
+## Sixth Week:
+1. Updated the GUI and changed to the right intervals.
+2. Started the draw part (the particles).
+3. Started to work on the boundaries.
+4. Started to work on the total calculations of the forces equation.
+*parts 2-4 are under construction and haven't been commited yet.
+
 
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
