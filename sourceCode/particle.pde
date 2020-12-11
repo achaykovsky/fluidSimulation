@@ -7,9 +7,8 @@ class Particle
     float velocity;
     float mass;
     float density;
-    float viscosity;
-    float k; //fluid constant
-    float fluidViscosity;
+    //float viscosity;
+    //float fluidViscosity;
     float pressure;
     color colour;
     float restDensity;
@@ -22,16 +21,15 @@ class Particle
     float dt;
   
   
-  Particle(float _xPos, float _yPos, float _mass, float _viscosity, float _k)
+  Particle(float _xPos, float _yPos, float _mass, float restDensity)
   {
     this.xPos = _xPos;
     this.yPos = _yPos;
-    this.colour = color(0,0,0);
+    this.colour = color(30,193,250);
     this.mass = _mass;
-    this.viscosity = _viscosity;
+    //this.viscosity = _viscosity;
     this.density = 0;
     this.pressure = 0;
-    this.k = _k;
     //this.velocity = _velocity;
     //this.prevVelocity = _prevVelocity;
   }
@@ -42,12 +40,19 @@ class Particle
     this.xPos = 0;
     this.yPos = 0;
     this.mass = 0;
-    this.viscosity = 0;
+    //this.viscosity = 0;
     this.density = 0;
     this.pressure = 0;
     this.density = 0;
   }
-
+  
+    void drawCircle(float h)
+    {
+      circle(h, h, h);
+      noStroke(); 
+      fill(30,193,250);
+    }
+  
     //getters
     float getXPos()
     {
@@ -64,10 +69,10 @@ class Particle
       return mass;
     }
     
-    float getViscosity()
-    {
-      return viscosity;
-    }
+    //float getViscosity()
+    //{
+    //  return viscosity;
+    //}
     
     float getDensity()
     {
