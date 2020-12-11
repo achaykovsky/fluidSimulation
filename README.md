@@ -32,6 +32,10 @@
 4. Started to work on the total calculations of the forces equation.
 *parts 2-4 are under construction and haven't been commited yet.
 
+## Seventh Week:
+1. Updated the particle
+2. Still working on parts 2-4 from last week to make everything work together.
+
 
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
