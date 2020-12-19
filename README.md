@@ -36,6 +36,12 @@
 1. Updated the particle
 2. Still working on parts 2-4 from last week to make everything work together.
 
+## Eighth Week:
+1. Defined the size of the simulation window.
+2. Defined the walls by it.
+3. Drew the simulation.
+4. Working on making the particles move.
+
 
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
