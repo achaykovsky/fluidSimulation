@@ -35,21 +35,24 @@ public void update_click(GButton source, GEvent event) { //_CODE_:btnUpdate:3911
   println("btnUpdate - GButton >> GEvent." + event + " @ " + millis());
   int newParticlesNum = Integer.parseInt(txtParticlesNum.getText());
   water.setParticlesNumber(newParticlesNum);
-  float newStepTime = Integer.parseInt(txtStepTime.getText());
+  float newTimeStep = Float.parseFloat(txtTimeStep.getText());
+  water.setTimeStep(newTimeStep);
   float newMass = sliderMass.getValueF();
   float newRestDensity = sliderRestDensity.getValueF();
+  water.setRestDensity(newRestDensity);
+  float newH = sliderH.getValueF();
+  water.setH(newH);
   float newFluidViscosity = sliderFluidViscosity.getValueF();  
-   
 } //_CODE_:btnUpdate:391167:
 
 public void txtParticlesNum_change(GTextField source, GEvent event) { //_CODE_:txtParticlesNum:283906:
   println("txtParticlesNum - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:txtParticlesNum:283906:
 
-public void txtStepTime_change(GTextField source, GEvent event) { //_CODE_:txtStepTime:694139:
+public void txtTimeStep_change(GTextField source, GEvent event) { //_CODE_:txtTimeStep:694139:
   println("textTimeStep - GTextField >> GEvent." + event + " @ " + millis());
   //float newTimeStep = source.getValueF();
-} //_CODE_:txtStepTime:694139:
+} //_CODE_:txtTimeStep:694139:
 
 public void sliderH_change(GSlider source, GEvent event) { //_CODE_:sliderH:211409:
   println("sliderH - GSlider >> GEvent." + event + " @ " + millis());
@@ -123,10 +126,10 @@ public void createGUI(){
   txtParticlesNum.setPromptText("Number of Particles");
   txtParticlesNum.setOpaque(false);
   txtParticlesNum.addEventHandler(this, "txtParticlesNum_change");
-  txtStepTime = new GTextField(this, 47, 270, 120, 30, G4P.SCROLLBARS_NONE);
-  txtStepTime.setPromptText("Time Step");
-  txtStepTime.setOpaque(true);
-  txtStepTime.addEventHandler(this, "txtStepTime_change");
+  txtTimeStep = new GTextField(this, 46, 270, 120, 30, G4P.SCROLLBARS_NONE);
+  txtTimeStep.setPromptText("Time Step");
+  txtTimeStep.setOpaque(true);
+  txtTimeStep.addEventHandler(this, "txtTimeStep_change");
   lblH = new GLabel(this, 355, 321, 80, 20);
   lblH.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   lblH.setText("h");
@@ -155,6 +158,6 @@ GLabel lblParticleOptions;
 GLabel lblFluidOptions; 
 GButton btnUpdate; 
 GTextField txtParticlesNum; 
-GTextField txtStepTime; 
+GTextField txtTimeStep; 
 GLabel lblH; 
 GSlider sliderH; 
