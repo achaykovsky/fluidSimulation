@@ -1,5 +1,6 @@
 class Particle
 {
+    int index = 0;
     float r;
     float xPos;
     float yPos;
@@ -8,7 +9,6 @@ class Particle
     float mass;
     float density;
     //float viscosity;
-    //float fluidViscosity;
     float pressure;
     color colour;
     float restDensity;
@@ -21,12 +21,13 @@ class Particle
     float dt;
   
   
-  Particle(float _xPos, float _yPos, float _mass, float restDensity)
+  Particle(float _xPos, float _yPos, float _mass, float _restDensity)
   {
     this.xPos = _xPos;
     this.yPos = _yPos;
     this.colour = color(30,193,250);
     this.mass = _mass;
+    this.restDensity = _restDensity;
     //this.viscosity = _viscosity;
     this.density = 0;
     this.pressure = 0;
@@ -46,13 +47,28 @@ class Particle
     this.density = 0;
   }
   
-    void drawCircle(float h)
-    {
-      circle(h, h, h);
-      noStroke(); 
-      fill(30,193,250);
+  Particle(Particle particle) 
+  {
+    this.xPos = particle.xPos;
+    this.yPos = particle.yPos;
+    this.colour = particle.colour;
+    this.mass = particle.mass;
+    this.restDensity = particle.restDensity;
+    //this.viscosity = particle.viscosity;
+    //this.velocity = particle.velocity;
+    //this.prevVelocity = particle.prevVelocity;
     }
   
+    void drawCircle(float xPos, float yPos, float h)
+    {
+      pushMatrix();
+      fill(30,193,250);
+      circle(xPos, yPos, h*10);
+      noStroke(); 
+      fill(30,193,250);
+      popMatrix();
+    }
+
     //getters
     float getXPos()
     {
@@ -74,6 +90,11 @@ class Particle
     //  return viscosity;
     //}
     
+    int getIndex()
+    {
+      return index;
+    }
+
     float getDensity()
     {
       return density;
@@ -132,8 +153,14 @@ class Particle
       pressure = k * (density - restDensity);
     }
   
-    void addDensity(float _density) {
+    void addDensity(float _density) 
+    {
       density += _density;
+    }
+    
+    void setIndex(int _index) 
+    {
+      index = _index;
     }
 
 
