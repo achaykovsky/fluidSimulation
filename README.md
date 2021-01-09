@@ -49,6 +49,10 @@ Looking for the things that prevent the simulation from working.
 1. Fixed a bug that crashed the program.
 2. Working on the things that prevent the simulation from working.
 
+## Eleventh Week:
+Discovered an important and tricky bug that prevents the whole simulation from working.
+Started to fix it through the program.
+
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
 
