@@ -54,7 +54,7 @@ Looking for the things that prevent the simulation from working.
 2. Started to fix it through the program.
 3. Updated the main window of the simulation (shows the current parameters for the convenience of the user).
 
-## Eleventh Week:
+## Twelfth Week:
 1. Fixed some issues on the particle class which prevented the simulation from moving.
 2. Updated the GUI and fixed some errors there.
 3. Found sources about how to integrate a grid into the simulation.
