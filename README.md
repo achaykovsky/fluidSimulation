@@ -50,8 +50,16 @@ Looking for the things that prevent the simulation from working.
 2. Working on the things that prevent the simulation from working.
 
 ## Eleventh Week:
-Discovered an important and tricky bug that prevents the whole simulation from working.
-Started to fix it through the program.
+1. Discovered an important and tricky bug that prevents the whole simulation from working.
+2. Started to fix it through the program.
+3. Updated the main window of the simulation (shows the current parameters for the convenience of the user).
+
+## Eleventh Week:
+1. Fixed some issues on the particle class which prevented the simulation from moving.
+2. Updated the GUI and fixed some errors there.
+3. Found sources about how to integrate a grid into the simulation.
+4. Created the grid (working on it).
+5. On work: Forces and Fluid classes have some issues with updating the parameters
 
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)

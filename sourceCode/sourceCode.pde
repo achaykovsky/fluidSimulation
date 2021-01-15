@@ -2,7 +2,6 @@ import g4p_controls.*;
 import java.awt.*;
 GWindow Screen;
  
-final int N = 256;
 final int EMPTY = -1;
 final float k = 8.314472; 
 
@@ -25,16 +24,19 @@ void draw()
 {
   background(230);
   fill(255,255,255);
+  stroke(0,0,0);
   rect(600,180,600,500);
-  noStroke(); 
-  int i=0;
-      //fluid.update();
+  
       for (Particle p : fluid.particles) 
       {
-        fluid.update();
+        //fluid.grid.particlesMatrix(fluid.particles);
+        //fluid.grid.sortParticles(fluid.particles);
+        //fluid.grid.initialize(fluid.particles);
+        //fluid.calculatePressure(); //<>//
+        //fluid.calculateForces();
         p.updateVelocity(fluid.timeStep);
-        p.display(i, fluid.h);
-        i++;
+        p.display(fluid.h);
+        fluid.boundaries();
       }
 }
 
@@ -57,11 +59,11 @@ void guiModifications()
   lblSimulation.setLocalColorScheme(0);
   lblCurrent.setFont(new Font("Arial", Font.PLAIN, 18));
   lblCurrent.setLocalColorScheme(0);
-  lblCurrMass.setText("Mass: " + fluid.particlesNumber);
+  lblCurrMass.setText("Mass: " + fluid.particles[0].getMass());
   lblCurrMass.setFont(new Font("Arial", Font.PLAIN, 15));
   lblcurrH.setText("h: " + fluid.h);
   lblcurrH.setFont(new Font("Arial", Font.PLAIN, 15));
-  lblCurrRestDensity.setText("Mass: " + fluid.restDensity);
+  lblCurrRestDensity.setText("Rest Density: " + fluid.getRestDensity());
   lblCurrRestDensity.setFont(new Font("Arial", Font.PLAIN, 15));
   lblCurrMyu.setText("µ: " + fluid.particlesNumber);
   lblCurrMyu.setFont(new Font("Arial", Font.PLAIN, 15));
