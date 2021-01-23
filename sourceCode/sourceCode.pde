@@ -26,18 +26,17 @@ void draw()
   fill(255,255,255);
   stroke(0,0,0);
   rect(600,180,600,500);
-  
-      for (Particle p : fluid.particles) 
-      {
-        //fluid.grid.particlesMatrix(fluid.particles);
-        //fluid.grid.sortParticles(fluid.particles);
-        //fluid.grid.initialize(fluid.particles);
-        //fluid.calculatePressure(); //<>//
-        //fluid.calculateForces();
-        p.updateVelocity(fluid.timeStep);
-        p.display(fluid.h);
-        fluid.boundaries();
-      }
+  for (Particle p : fluid.particles) 
+  {
+    fluid.grid.particlesMatrix(fluid.particles);
+    fluid.grid.sortParticles(fluid.particles);
+    fluid.grid.initialize(fluid.particles);
+    fluid.calculatePressure(); //<>//
+    fluid.calculateForces();
+    p.updateVelocity(fluid.getTimeStep());
+    fluid.boundaries();
+    p.display(fluid.h);
+   }
 }
 
  
@@ -53,7 +52,7 @@ void guiModifications()
   lblFluidViscosity.setFont(new Font("Arial", Font.PLAIN, 15)); 
   lblRestDensity.setFont(new Font("Arial", Font.PLAIN, 15)); 
   lblH.setFont(new Font("Arial", Font.PLAIN, 15));
-  lblParticlesNum.setText("Number Of Particles: " + fluid.particlesNumber);
+  lblParticlesNum.setText("Number Of Particles: " + fluid.getParticlesNumber());
   lblParticlesNum.setFont(new Font("Arial", Font.PLAIN, 15));
   lblSimulation.setFont(new Font("Arial", Font.PLAIN, 20));
   lblSimulation.setLocalColorScheme(0);
@@ -65,8 +64,8 @@ void guiModifications()
   lblcurrH.setFont(new Font("Arial", Font.PLAIN, 15));
   lblCurrRestDensity.setText("Rest Density: " + fluid.getRestDensity());
   lblCurrRestDensity.setFont(new Font("Arial", Font.PLAIN, 15));
-  lblCurrMyu.setText("µ: " + fluid.particlesNumber);
+  lblCurrMyu.setText("µ: " + fluid.getFluidViscosity());
   lblCurrMyu.setFont(new Font("Arial", Font.PLAIN, 15));
-  lblCurrTimeStep.setText("Time Step: " + fluid.timeStep);
+  lblCurrTimeStep.setText("Time Step: " + fluid.getTimeStep());
   lblCurrTimeStep.setFont(new Font("Arial", Font.PLAIN, 15));
 }
