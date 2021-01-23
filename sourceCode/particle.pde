@@ -1,26 +1,24 @@
 class Particle
 {
-    int index = 0;
+    int index;
     float r;
-    PVector position = new PVector(600,180);
-    float xVelocity = 0.2;
-    float yVelocity = 0.4;
-    float dXVelocity = 0;
-    float dYVelocity = 0;
+    PVector position = new PVector(600,180);   
+    PVector velocity = new PVector(0.1,0.1);
+    PVector dVelocity = new PVector(0,0);
+    color colour = color(30,193,250);
     float mass;
     float density;
     float viscosity;
     float pressure;
-    color colour;
     float restDensity;
-    PVector dVelocity = new PVector(0,0);
     float dt;
   
   //c'tor for the update from GUI option
   Particle(float _xPos, float _yPos, float _mass, float _restDensity)
   {
-    this.position.x = _xPos;
-    this.position.y = _yPos;
+    this.position.set(_xPos,_yPos);
+    this.dVelocity.set(0,0);
+    this.velocity.set(0.1,0.1);
     this.colour = color(30,193,250);
     this.mass = _mass;
     this.restDensity = _restDensity;
@@ -32,38 +30,34 @@ class Particle
   //empty c'tor
   Particle()
   {
-    this.position.x = 0;
-    this.position.y = 0;
+    this.position.set(600,180);
+    this.velocity.set(0.1,0.1);
     this.mass = 0;
     this.viscosity = 0;
     this.density = 0;
     this.pressure = 0;
-    this.yVelocity = 0.1;
-    this.xVelocity= 0.2;
   }
   
   //copy c'tor
   Particle(Particle particle) 
   {
-    this.position.x = particle.position.x;
-    this.position.y = particle.position.y;
+    this.position = particle.position;
+    this.pressure = particle.pressure;
+    this.velocity = particle.velocity;
     this.colour = particle.colour;
     this.mass = particle.mass;
     this.restDensity = particle.restDensity;
     this.viscosity = particle.viscosity;
-    this.yVelocity = particle.yVelocity;
-    this.xVelocity = particle.xVelocity;
     this.density = particle.density;
     this.pressure = particle.pressure;
    }
   
-  
-      void display(float h) 
-      {
-      fill(30,193,250);
-      circle(position.x, position.y, h*10);
-      stroke(0,0,0);
-      } 
+    void display(float h) 
+    {
+     fill(colour);
+     circle(position.x, position.y, h*7);
+     //stroke(0,0,0);
+    } 
 
     //getters
     float getXPos()
@@ -103,12 +97,12 @@ class Particle
     
     float getXVelocity() 
     {
-      return xVelocity;
+      return velocity.x;
     }
     
     float getYVelocity() 
     {
-      return yVelocity;
+      return velocity.y;
     }
     
     
@@ -135,12 +129,12 @@ class Particle
     
     void setYVelocity(float _yVelocity) 
     {
-      yVelocity = _yVelocity;
+      velocity.y = _yVelocity;
     }
     
     void setXVelocity(float _xVelocity) 
     {
-      xVelocity = _xVelocity;
+      velocity.x = _xVelocity;
     }
   
     //rest density will be updated from the GUI
@@ -164,25 +158,28 @@ class Particle
 //functions to update the velocity, using acceleration
 
     //updates the acceleration by x and y
-    PVector accelerate(float xForce, float yForce) 
+    void accelerate(float xForce, float yForce) 
     {
-      dVelocity.x += xForce / density;
-      dVelocity.y += yForce / density;
-      return dVelocity;
+      if (density != 0)
+      {
+        dVelocity.x += xForce / density;
+        dVelocity.y += yForce / density;
+      }
     }
     
     //updates the velocity using x and y
     void updateVelocity(float dt) 
     {
-      xVelocity += dVelocity.x * dt;
-      yVelocity += dVelocity.y * dt;
+      //updating the velocity
+      velocity.x += dVelocity.x * dt;
+      velocity.y += dVelocity.y * dt;
       
-      position.x += xVelocity * dt;
-      position.y += yVelocity * dt;
+      //updating the position
+      position.x += velocity.x * dt;
+      position.y += velocity.y * dt;
       
-      
+      //initialzing params for the next iteration
       dVelocity.set(0,0);
-    
       density = 0;
       pressure = 0;
     }
