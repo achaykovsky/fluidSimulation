@@ -61,7 +61,7 @@ Looking for the things that prevent the simulation from working.
 4. Created the grid (working on it).
 5. On work: Forces and Fluid classes have some issues with updating the parameters
 
-## Twelfth Week:
+## Thirteen Week:
 1. Fixed some issues on the particle class which prevented the simulation from moving.
 2. Integrated the grid
 3. Added surface tension force (not commited yet).
