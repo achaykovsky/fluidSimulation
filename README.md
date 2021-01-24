@@ -132,3 +132,21 @@ As particles get very close to each other, the repulsion force vanishes because 
 this problem by using a spiky kernel with a non vanishing gradient near the center. For pressure computations I use Debrun's spiky kernel:
 
 ![19 - W - 3](https://user-images.githubusercontent.com/49001453/98481277-ce83fc00-2201-11eb-9be0-f60f277b5bfc.PNG)
+
+For the smoothed color field we get:
+![image](https://user-images.githubusercontent.com/49001453/105640462-e07f4d80-5e86-11eb-849e-c10e4da24532.png)
+
+The gradient field of the smoothed color field:
+![image](https://user-images.githubusercontent.com/49001453/105640473-f42ab400-5e86-11eb-9d35-584531e76a94.png)
+ 
+yields the surface normal field pointing into the fluid and the divergence of n measures the curvature of the surface
+ ![image](https://user-images.githubusercontent.com/49001453/105640476-f7be3b00-5e86-11eb-8e02-2a186d5cc204.png)
+
+The minus is necessary to get positive curvature for convex fluid volumes. Putting it all together, we get for the surface traction:
+![image](https://user-images.githubusercontent.com/49001453/105640481-fab92b80-5e86-11eb-969b-3edb6e0d2b00.png)
+ 
+To distribute the surface traction among particles near the surface and to get a force density we multiply by a normalized scalar field δs = |n| which is non-zero only near the surface. For the force density acting near the surface we get:
+
+![image](https://user-images.githubusercontent.com/49001453/105640482-fdb41c00-5e86-11eb-9967-fe41ee2d4a76.png) 
+ 
+Evaluating n=|n| at locations where |n| is small causes numerical problems. We only evaluate the force if |n| exceeds a certain threshold.
