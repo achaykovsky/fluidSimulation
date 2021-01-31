@@ -67,7 +67,9 @@ Looking for the things that prevent the simulation from working.
 3. Added surface tension force (not commited yet).
 4. Fixed a bug on the forces class (prevented simulation from running).
 
-
+## Fourteen Week:
+Added some description about surface tension.
+Exams period - took a break from programming.
 
 
 # SPH Summary
