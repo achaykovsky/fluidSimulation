@@ -15,50 +15,39 @@
  */
 
 public void mass_change(GSlider source, GEvent event) { //_CODE_:sliderMass:619737:
-  println("sliderMass - GSlider >> GEvent." + event + " @ " + millis());
-  float newMass = source.getValueF();
-
-  
 } //_CODE_:sliderMass:619737:
 
 public void restDensity_change(GSlider source, GEvent event) { //_CODE_:sliderRestDensity:745241:
-  println("sliderRestDensity - GSlider >> GEvent." + event + " @ " + millis());
-    float newRestDensity = source.getValueF();
 } //_CODE_:sliderRestDensity:745241:
 
 public void fluidViscosity_change(GSlider source, GEvent event) { //_CODE_:sliderFluidViscosity:680732:
-  println("sliderFluidViscosity - GSlider >> GEvent." + event + " @ " + millis());
-    float newFluidViscosity = source.getValueF();  
+
 } //_CODE_:sliderFluidViscosity:680732:
 
-public void update_click(GButton source, GEvent event) { //_CODE_:btnUpdate:391167:
-  println("btnUpdate - GButton >> GEvent." + event + " @ " + millis());
+public void update_click(GButton source, GEvent event) 
+{ //_CODE_:btnUpdate:391167:
   int newParticlesNum = Integer.parseInt(txtParticlesNum.getText());
-  fluid.setParticlesNumber(newParticlesNum);
   float newTimeStep = Float.parseFloat(txtTimeStep.getText());
-  fluid.setTimeStep(newTimeStep);
   float newMass = sliderMass.getValueF();
   float newRestDensity = sliderRestDensity.getValueF();
-  fluid.setRestDensity(newRestDensity);
   float newH = sliderH.getValueF();
-  fluid.setH(newH);
   float newFluidViscosity = sliderFluidViscosity.getValueF();
-  lblParticlesNum.setText("Number Of Particles " + fluid.particlesNumber);
+  currentFluid.setTimeStep(newTimeStep);
+  currentFluid.setRestDensity(newRestDensity);
+  currentFluid.setH(newH);
+  currentFluid.setFluidViscosity(newFluidViscosity);
+  currentFluid.setParticlesNumber(newParticlesNum); 
+  currentFluid.updateParticles(newParticlesNum, newMass, newRestDensity);
 } //_CODE_:btnUpdate:391167:
 
 public void txtParticlesNum_change(GTextField source, GEvent event) { //_CODE_:txtParticlesNum:283906:
-  println("txtParticlesNum - GTextField >> GEvent." + event + " @ " + millis());
 } //_CODE_:txtParticlesNum:283906:
 
 public void txtTimeStep_change(GTextField source, GEvent event) { //_CODE_:txtTimeStep:694139:
-  println("textTimeStep - GTextField >> GEvent." + event + " @ " + millis());
-  //float newTimeStep = source.getValueF();
 } //_CODE_:txtTimeStep:694139:
 
 public void sliderH_change(GSlider source, GEvent event) { //_CODE_:sliderH:211409:
-  println("sliderH - GSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:sliderH:211409:
-
 
 
 // Create all the GUI controls. 
