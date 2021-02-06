@@ -71,6 +71,10 @@ Looking for the things that prevent the simulation from working.
 Added some description about surface tension.
 Exams period - took a break from programming.
 
+## Fifteen Week:
+1. Updated the Simulation size (including boundaries etc.)
+2. Added new conrollers (Play/Pause/Reset).
+3. Fixed the update button.
 
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
