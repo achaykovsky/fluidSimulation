@@ -1,9 +1,9 @@
 class Fluid
 {
-  int particlesNumber = 30;
+  int particlesNumber = 100;
   float h = 1;
-  float restDensity;
-  float timeStep = 0.5;
+  float restDensity = 0.05;
+  float timeStep = 0.05;
   float fluidViscosity = 0.1;
   
   Forces forces = new Forces(h);
@@ -14,14 +14,12 @@ class Fluid
   //empty c'tor
   Fluid()
   {
-    particlesNumber = 30;
-    restDensity = 0.5;
     h = 1;
     for (int i = 0; i < particles.length; i++) 
     {
-      float xPos = 600 ,yPos = 180;
+      float xPos = 675 ,yPos = 75;
       float mass = 0.3;
-      Particle initializer = new Particle(xPos + i*random(10), yPos + i*random(10), mass, restDensity);
+      Particle initializer = new Particle(xPos + i*random(15), yPos + i*random(10), mass, restDensity);
       particles[i] = initializer; //<>//
     }
   }
@@ -31,13 +29,14 @@ class Fluid
   {
     for (int i = 0; i < newParticlesNum; i++) 
     {
-      float xPos = 600 ,yPos = 180;
+      float xPos = 650 ,yPos = 75;
       float mass = newMass;
       Particle initializer = new Particle(xPos + i*random(15), yPos + i*random(10), mass, newRestDensity);
       currentFluid.particles[i] = initializer;
     }
   }
   
+
   
   //setters
    void setParticlesNumber(int _particlesNumber) 
@@ -217,8 +216,7 @@ class Fluid
           //calculates the forces that work on the two particles
           forces.calculateParticlesPressure(particles[i], particles[i + inc]);
           forces.calculateViscosity(particles[i], particles[i + inc]);
-          //forces.calculateSurfaceTension(particles[i], particles[i + inc]);
-          //forces.collide(particles[i], particles[i + inc]);
+          forces.calculateSurfaceTension(particles[i], particles[i + inc]);
           inc++;
         }
       }
@@ -232,8 +230,7 @@ class Fluid
         {
           forces.calculateParticlesPressure(particles[i], particles[index + inc]);
           forces.calculateViscosity(particles[i], particles[index + inc]);
-          //forces.calculateSurfaceTension(particles[i], particles[index + inc]);
-          forces.collide(particles[i], particles[i + inc]);
+          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
           inc++;
         }
       }
@@ -246,8 +243,7 @@ class Fluid
         {
           forces.calculateParticlesPressure(particles[i], particles[index + inc]);
           forces.calculateViscosity(particles[i], particles[index + inc]);
-          //forces.calculateSurfaceTension(particles[i], particles[index + inc]);
-          //forces.collide(particles[i], particles[i + inc]);
+          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
           inc++;
         }
       }
@@ -260,8 +256,7 @@ class Fluid
         {
           forces.calculateParticlesPressure(particles[i], particles[index + inc]);
           forces.calculateViscosity(particles[i], particles[index + inc]);
-          //forces.calculateSurfaceTension(particles[i], particles[index + inc]);
-          //forces.collide(particles[i], particles[i + inc]);
+          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
           inc++;
         }
       }
@@ -274,8 +269,7 @@ class Fluid
         {
           forces.calculateParticlesPressure(particles[i], particles[index + inc]);
           forces.calculateViscosity(particles[i], particles[index + inc]);
-          //forces.calculateSurfaceTension(particles[i], particles[index + inc]);
-          //forces.collide(particles[i], particles[i + inc]);
+          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
           inc++;
         }
       }
@@ -301,22 +295,22 @@ class Fluid
       if (particles[i].getXPos() <= 600) 
       {
         particles[i].setX(600.1);
-        //particles[i].setXVelocity(particles[i].getXVelocity()*(-1));
+        particles[i].setXVelocity(particles[i].getXVelocity()*(-1));
       }
-      if (particles[i].getXPos() >= 1200) 
+      if (particles[i].getXPos() >= 1280) 
       {
-        particles[i].setX(1199.9);
-        //particles[i].setXVelocity(particles[i].getXVelocity()*(-1));
+        particles[i].setX(1279.9);
+        particles[i].setXVelocity(particles[i].getXVelocity()*(-1));
       }
-      if (particles[i].getYPos() <= 180) 
+      if (particles[i].getYPos() <= 75) 
       {
-        particles[i].setY(180.1);
-        //particles[i].setYVelocity(particles[i].getYVelocity()*(-1));
+        particles[i].setY(75.1);
+        particles[i].setYVelocity(particles[i].getYVelocity()*(-1));
       }
-      if (particles[i].getYPos() >= 680) 
+      if (particles[i].getYPos() >= 675) 
       {
-        particles[i].setY(679.9);
-        //particles[i].setYVelocity(particles[i].getYVelocity()*(-1));
+        particles[i].setY(674.9);
+        particles[i].setYVelocity(particles[i].getYVelocity()*(-1));
       }
     }
   }

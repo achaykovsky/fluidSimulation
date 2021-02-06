@@ -24,20 +24,23 @@ public void fluidViscosity_change(GSlider source, GEvent event) { //_CODE_:slide
 
 } //_CODE_:sliderFluidViscosity:680732:
 
-public void update_click(GButton source, GEvent event) 
-{ //_CODE_:btnUpdate:391167:
+public void update_click(GButton source, GEvent event) { //_CODE_:btnUpdate:391167:
+
   int newParticlesNum = Integer.parseInt(txtParticlesNum.getText());
   float newTimeStep = Float.parseFloat(txtTimeStep.getText());
-  float newMass = sliderMass.getValueF();
-  float newRestDensity = sliderRestDensity.getValueF();
-  float newH = sliderH.getValueF();
-  float newFluidViscosity = sliderFluidViscosity.getValueF();
-  currentFluid.setTimeStep(newTimeStep);
-  currentFluid.setRestDensity(newRestDensity);
-  currentFluid.setH(newH);
-  currentFluid.setFluidViscosity(newFluidViscosity);
-  currentFluid.setParticlesNumber(newParticlesNum); 
-  currentFluid.updateParticles(newParticlesNum, newMass, newRestDensity);
+  if ((newTimeStep!=0) && (newParticlesNum!=0))
+  {
+    float newMass = sliderMass.getValueF();
+    float newRestDensity = sliderRestDensity.getValueF();
+    float newH = sliderH.getValueF();
+    float newFluidViscosity = sliderFluidViscosity.getValueF();
+    currentFluid.setTimeStep(newTimeStep);
+    currentFluid.setRestDensity(newRestDensity);
+    currentFluid.setH(newH);
+    currentFluid.setFluidViscosity(newFluidViscosity);
+    currentFluid.setParticlesNumber(newParticlesNum); 
+    currentFluid.updateParticles(newParticlesNum, newMass, newRestDensity);
+  }
 } //_CODE_:btnUpdate:391167:
 
 public void txtParticlesNum_change(GTextField source, GEvent event) { //_CODE_:txtParticlesNum:283906:
@@ -48,6 +51,25 @@ public void txtTimeStep_change(GTextField source, GEvent event) { //_CODE_:txtTi
 
 public void sliderH_change(GSlider source, GEvent event) { //_CODE_:sliderH:211409:
 } //_CODE_:sliderH:211409:
+
+public void play(GButton source, GEvent event) { //_CODE_:btnPlay:832565:
+  loop();
+} //_CODE_:btnPlay:832565:
+
+public void pause(GButton source, GEvent event) { //_CODE_:btnPause:309183:
+  noLoop();
+} //_CODE_:btnPause:309183:
+
+public void reset(GButton source, GEvent event) { //_CODE_:btn_reset:621374:
+  noLoop();
+  background(230);
+  fill(255,255,255);
+  stroke(0,0,0);
+  rect(600,75,680,600);
+  line(550,0, 550, height);
+  line(250,150, 250, height*3/4);
+} //_CODE_:btn_reset:621374:
+
 
 
 // Create all the GUI controls. 
@@ -133,32 +155,44 @@ public void createGUI(){
   sliderH.setLocalColorScheme(GCScheme.CYAN_SCHEME);
   sliderH.setOpaque(false);
   sliderH.addEventHandler(this, "sliderH_change");
-  lblParticlesNum = new GLabel(this, 690, 729, 274, 33);
+  lblParticlesNum = new GLabel(this, 756, 787, 274, 33);
   lblParticlesNum.setText("Number Of Particles:");
   lblParticlesNum.setOpaque(false);
-  lblSimulation = new GLabel(this, 834, 74, 166, 64);
+  lblSimulation = new GLabel(this, 836, 12, 166, 64);
   lblSimulation.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   lblSimulation.setText("Simulation");
   lblSimulation.setOpaque(false);
-  lblCurrent = new GLabel(this, 837, 692, 198, 36);
+  lblCurrent = new GLabel(this, 851, 746, 198, 36);
   lblCurrent.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   lblCurrent.setText("Current Details:");
   lblCurrent.setOpaque(false);
-  lblCurrMass = new GLabel(this, 1055, 794, 133, 29);
+  lblCurrMass = new GLabel(this, 1032, 788, 133, 29);
   lblCurrMass.setText("Mass:");
   lblCurrMass.setOpaque(false);
-  lblcurrH = new GLabel(this, 1055, 732, 131, 28);
-  lblcurrH.setText("h");
+  lblcurrH = new GLabel(this, 1035, 819, 131, 33);
+  lblcurrH.setText("h:");
   lblcurrH.setOpaque(false);
-  lblCurrRestDensity = new GLabel(this, 1054, 761, 133, 33);
+  lblCurrRestDensity = new GLabel(this, 1035, 855, 133, 33);
   lblCurrRestDensity.setText("Rest Density:");
   lblCurrRestDensity.setOpaque(false);
-  lblCurrMyu = new GLabel(this, 690, 762, 275, 28);
+  lblCurrMyu = new GLabel(this, 757, 823, 275, 28);
   lblCurrMyu.setText("µ:");
   lblCurrMyu.setOpaque(false);
-  lblCurrTimeStep = new GLabel(this, 690, 789, 276, 35);
+  lblCurrTimeStep = new GLabel(this, 757, 853, 276, 35);
   lblCurrTimeStep.setText("Time Step:");
   lblCurrTimeStep.setOpaque(false);
+  btnPlay = new GButton(this, 1304, 205, 80, 30);
+  btnPlay.setText("Play");
+  btnPlay.setLocalColorScheme(GCScheme.GOLD_SCHEME);
+  btnPlay.addEventHandler(this, "play");
+  btnPause = new GButton(this, 1304, 244, 80, 30);
+  btnPause.setText("Pause");
+  btnPause.setLocalColorScheme(GCScheme.GOLD_SCHEME);
+  btnPause.addEventHandler(this, "pause");
+  btn_reset = new GButton(this, 1305, 284, 80, 30);
+  btn_reset.setText("Reset");
+  btn_reset.setLocalColorScheme(GCScheme.GOLD_SCHEME);
+  btn_reset.addEventHandler(this, "reset");
 }
 
 // Variable declarations 
@@ -185,3 +219,6 @@ GLabel lblcurrH;
 GLabel lblCurrRestDensity; 
 GLabel lblCurrMyu; 
 GLabel lblCurrTimeStep; 
+GButton btnPlay; 
+GButton btnPause; 
+GButton btn_reset; 

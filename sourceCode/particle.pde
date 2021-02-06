@@ -32,6 +32,7 @@ class Particle
   {
     this.position.set(600,180);
     this.velocity.set(0.1,0.1);
+    this.colour = color(30,193,250);
     this.mass = 0;
     this.viscosity = 0;
     this.density = 0;
@@ -52,12 +53,14 @@ class Particle
     this.pressure = particle.pressure;
    }
   
-    void display(float h) 
+    void display(float h, int index) 
     {
      fill(colour);
+     noStroke();
      circle(position.x, position.y, h*7);
-     //stroke(0,0,0);
+     text(index, position.x, position.y);
     } 
+    
 
     //getters
     float getXPos()
@@ -143,10 +146,9 @@ class Particle
       pressure = k * (density - restDensity);
     }
   
-    float addDensity(float _density) 
+    void addDensity(float _density) 
     {
       this.density += _density;
-      return density;
     }
     
     void setIndex(int _index) 
@@ -183,5 +185,5 @@ class Particle
       density = 0;
       pressure = 0;
     }
-  
+    
 }

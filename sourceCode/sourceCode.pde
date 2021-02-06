@@ -11,7 +11,7 @@ Fluid currentFluid = new Fluid();
 
 void settings() 
 {
-  size(1300, 900, P2D);
+  size(1400, 900);
 }
 
 void setup() 
@@ -24,23 +24,27 @@ void draw()
   background(230);
   fill(255,255,255);
   stroke(0,0,0);
-  rect(600,180,600,500);
-  //println("draw: currentFluid:" + currentFluid.particles.length);
+  rect(600,75,680,600);
+  int index = 0;
   for (Particle p : currentFluid.particles) 
   {
+    index++;
+    line(550,0, 550, height);
+    line(250,150, 250, height*3/4);
     currentFluid.grid.particlesMatrix(currentFluid.particles);
     currentFluid.grid.sortParticles(currentFluid.particles);
     currentFluid.grid.initialize(currentFluid.particles);
-    currentFluid.calculatePressure(); //<>//
+    currentFluid.calculatePressure(); //<>// //<>//
     currentFluid.calculateForces();
     p.updateVelocity(currentFluid.getTimeStep());
     currentFluid.boundaries();
-    p.display(currentFluid.h);
+    p.display(currentFluid.h, index);
    }
   guiModifications();
 }
 
- 
+
+
 void guiModifications()
 {
   lblHeader.setFont(new Font("Arial", Font.PLAIN, 30));
