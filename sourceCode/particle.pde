@@ -2,7 +2,7 @@ class Particle
 {
     int index;
     float r;
-    PVector position = new PVector(600,180);   
+    PVector position = new PVector(1150,180);   
     PVector velocity = new PVector(0.1,0.1);
     PVector dVelocity = new PVector(0,0);
     color colour = color(30,193,250);
@@ -55,22 +55,17 @@ class Particle
   
     void display(float h, int index) 
     {
-     fill(colour);
-     noStroke();
-     circle(position.x, position.y, h*7);
-     text(index, position.x, position.y);
+       fill(colour);
+       noStroke();
+       circle(position.x, position.y, h*7);
+       text(index, position.x, position.y);
     } 
     
 
     //getters
-    float getXPos()
+    PVector getPos()
     {
-      return position.x;
-    }
-    
-    float getYPos() 
-    {
-      return position.y;
+      return position;
     }
     
     float getMass()
@@ -98,15 +93,11 @@ class Particle
       return pressure;
     }
     
-    float getXVelocity() 
+    PVector getVelocity() 
     {
-      return velocity.x;
+      return velocity;
     }
     
-    float getYVelocity() 
-    {
-      return velocity.y;
-    }
     
     
     //setters

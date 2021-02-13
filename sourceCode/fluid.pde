@@ -17,7 +17,7 @@ class Fluid
     h = 1;
     for (int i = 0; i < particles.length; i++) 
     {
-      float xPos = 675 ,yPos = 75;
+      float xPos = 1150 ,yPos = 75;
       float mass = 0.3;
       Particle initializer = new Particle(xPos + i*random(15), yPos + i*random(10), mass, restDensity);
       particles[i] = initializer; //<>//
@@ -292,25 +292,25 @@ class Fluid
   {
     for (int i = 0; i < particles.length; i++) 
     {
-      if (particles[i].getXPos() <= 600) 
+      if (particles[i].getPos().x <= 600) 
       {
         particles[i].setX(600.1);
-        particles[i].setXVelocity(particles[i].getXVelocity()*(-1));
+        particles[i].setXVelocity(particles[i].getVelocity().x*(-1));
       }
-      if (particles[i].getXPos() >= 1280) 
+      if (particles[i].getPos().x >= 1280) 
       {
         particles[i].setX(1279.9);
-        particles[i].setXVelocity(particles[i].getXVelocity()*(-1));
+        particles[i].setXVelocity(particles[i].getVelocity().x*(-1));
       }
-      if (particles[i].getYPos() <= 75) 
+      if (particles[i].getPos().y <= 75) 
       {
         particles[i].setY(75.1);
-        particles[i].setYVelocity(particles[i].getYVelocity()*(-1));
+        particles[i].setYVelocity(particles[i].getVelocity().y*(-1));
       }
-      if (particles[i].getYPos() >= 675) 
+      if (particles[i].getPos().y >= 750) 
       {
-        particles[i].setY(674.9);
-        particles[i].setYVelocity(particles[i].getYVelocity()*(-1));
+        particles[i].setY(749.9);
+        particles[i].setYVelocity(particles[i].getVelocity().y*(-1));
       }
     }
   }
