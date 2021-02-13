@@ -65,7 +65,7 @@ Looking for the things that prevent the simulation from working.
 1. Fixed some issues on the particle class which prevented the simulation from moving.
 2. Integrated the grid
 3. Added surface tension force (not commited yet).
-4. Fixed a bug on the forces class (prevented simulation from running).
+4. Fixed a bug on the forces class (prevented the simulation from running).
 
 ## Fourteen Week:
 Added some description about surface tension.
@@ -73,8 +73,14 @@ Exams period - took a break from programming.
 
 ## Fifteen Week:
 1. Updated the Simulation size (including boundaries etc.)
-2. Added new conrollers (Play/Pause/Reset).
+2. Added new conrollers (Play/Pause).
 3. Fixed the update button.
+
+## Sixteen Week:
+1. Updated the GUI - boundaries
+2. Updated some variables and functions to work on vectors basis for a cleaner code.
+3. Checking out the positions issue (splashes that appear in lines).
+
 
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
