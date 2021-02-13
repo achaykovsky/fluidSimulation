@@ -60,16 +60,6 @@ public void pause(GButton source, GEvent event) { //_CODE_:btnPause:309183:
   noLoop();
 } //_CODE_:btnPause:309183:
 
-public void reset(GButton source, GEvent event) { //_CODE_:btn_reset:621374:
-  noLoop();
-  background(230);
-  fill(255,255,255);
-  stroke(0,0,0);
-  rect(600,75,680,600);
-  line(550,0, 550, height);
-  line(250,150, 250, height*3/4);
-} //_CODE_:btn_reset:621374:
-
 
 
 // Create all the GUI controls. 
@@ -189,10 +179,6 @@ public void createGUI(){
   btnPause.setText("Pause");
   btnPause.setLocalColorScheme(GCScheme.GOLD_SCHEME);
   btnPause.addEventHandler(this, "pause");
-  btn_reset = new GButton(this, 1305, 284, 80, 30);
-  btn_reset.setText("Reset");
-  btn_reset.setLocalColorScheme(GCScheme.GOLD_SCHEME);
-  btn_reset.addEventHandler(this, "reset");
 }
 
 // Variable declarations 
@@ -221,4 +207,3 @@ GLabel lblCurrMyu;
 GLabel lblCurrTimeStep; 
 GButton btnPlay; 
 GButton btnPause; 
-GButton btn_reset; 
