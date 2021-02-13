@@ -8,18 +8,17 @@ class Fluid
   
   Forces forces = new Forces(h);
   Particle[] particles = new Particle[particlesNumber];
-  ParticleSpace grid = new ParticleSpace(600, 800, h);
+  ParticleSpace grid = new ParticleSpace(680, 675, h);
   
   
   //empty c'tor
   Fluid()
   {
-    h = 1;
     for (int i = 0; i < particles.length; i++) 
     {
-      float xPos = 1150 ,yPos = 75;
+      PVector position = new PVector(1150,75);
       float mass = 0.3;
-      Particle initializer = new Particle(xPos + i*random(15), yPos + i*random(10), mass, restDensity);
+      Particle initializer = new Particle(position.x + i*random(15), position.y + i*random(10), mass, restDensity);
       particles[i] = initializer; //<>//
     }
   }
@@ -29,9 +28,9 @@ class Fluid
   {
     for (int i = 0; i < newParticlesNum; i++) 
     {
-      float xPos = 650 ,yPos = 75;
+      PVector position = new PVector(1150,75);
       float mass = newMass;
-      Particle initializer = new Particle(xPos + i*random(15), yPos + i*random(10), mass, newRestDensity);
+      Particle initializer = new Particle(position.x + i*random(15), position.y + i*random(10), mass, newRestDensity);
       currentFluid.particles[i] = initializer;
     }
   }
@@ -194,9 +193,6 @@ class Fluid
       //    inc++;
       //  }
       //}
-      
-      
-      
       particles[i].setPressure();
     }
   }
