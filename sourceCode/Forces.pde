@@ -1,10 +1,10 @@
 class Forces
 {
-    float h = 0;//h smoothing kernel radius
-    float hSquared = 0;
+    float h = 1;//h smoothing kernel radius
+    float hSquared = 1;
     float spikyConst = 0;
     float poly6Const = 0;
-    float viscosityConst = 0;
+    float poly6GradConst = 0;
     float viscosityGradConstSquared = 0;
 
   Forces(float _h)
@@ -13,55 +13,74 @@ class Forces
     this.hSquared = pow(h, 2);
     this.spikyConst = 15.0 / (PI*pow(h, 6));
     this.poly6Const = 315.0 / (64*PI*pow(h, 9));
-    this.viscosityConst = 15.0 / (TWO_PI * pow(h, 3));
+    this.poly6GradConst = -945.0 / (32 * PI*pow(h, 9));
     this.viscosityGradConstSquared = 45.0 / (PI * pow(h, 6));
   }
   
-  void density(Particle p1, Particle p2) 
+  void calculateDensity(Particle p1, Particle p2) 
   {
-    float rSquared = pow(dist(p1.getXPos(),p1.getYPos(),p2.getXPos(),p2.getYPos()),2);//h^2
+    float rSquared = pow(dist(p1.getPos().x,p1.getPos().y,p2.getPos().x,p2.getPos().y),2);//r^2
     if (hSquared > rSquared) 
     {
       float density = (p1.getMass()) * poly6Const * pow((hSquared - rSquared), 3);//poly6*(h^2-r^2)^3
-      p1.addDensity(density);
-      p2.addDensity(density);
+      if (density != 0)
+      {
+        p1.addDensity(density);
+        p2.addDensity(density);
+      }
     }
   }
 
-  void viscosity(Particle p1, Particle p2) 
+
+  void calculateViscosity(Particle p1, Particle p2) 
   {
-    float r = dist(p1.getXPos(),p1.getYPos(),p2.getXPos(),p2.getYPos());
+    float r = dist(p1.getPos().x,p1.getPos().y,p2.getPos().x,p2.getPos().y);
     float rSquared = pow(r,2);
     if (hSquared > rSquared) 
     {
-        float viscosityXForce = p2.getMass() * ((p2.getVelocity() - p1.getVelocity()) / p2.getDensity()) * viscosityGradConstSquared * (h - r);
-        float viscosityYForce = p2.getMass() * ((p2.getPrevVelocity() - p1.getPrevVelocity()) / p2.getDensity()) * viscosityGradConstSquared * (h - r);
-        p1.accelerate(viscosityXForce, viscosityYForce);
-        viscosityXForce = p1.getMass() * ((p1.getVelocity() - p2.getVelocity()) / p1.getDensity()) * viscosityGradConstSquared * (h - r);
-        viscosityYForce = p1.getMass() * ((p1.getPrevVelocity() - p2.getPrevVelocity()) / p1.getDensity()) * viscosityGradConstSquared * (h - r);
-        p2.accelerate(viscosityXForce, viscosityYForce);
+        PVector viscosityForce = new PVector(0,0);
+        viscosityForce.x = currentFluid.getFluidViscosity() * p2.getMass() * ((p2.getVelocity().x - p1.getVelocity().x) / p2.getDensity()) * viscosityGradConstSquared * (h - r);
+        viscosityForce.y = currentFluid.getFluidViscosity() * p2.getMass() * ((p2.getVelocity().y - p1.getVelocity().y) / p2.getDensity()) * viscosityGradConstSquared * (h - r);
+        p1.accelerate(viscosityForce.x, viscosityForce.y);
+        viscosityForce.x = currentFluid.getFluidViscosity() * p1.getMass() * ((p1.getVelocity().x - p2.getVelocity().x) / p1.getDensity()) * viscosityGradConstSquared * (h - r);
+        viscosityForce.y = currentFluid.getFluidViscosity() * p1.getMass() * ((p1.getVelocity().y - p2.getVelocity().y) / p1.getDensity()) * viscosityGradConstSquared * (h - r);
+        p2.accelerate(viscosityForce.x, viscosityForce.y);
     }
   }
 
-  void pressure(Particle p1, Particle p2) 
+  void calculateParticlesPressure(Particle p1, Particle p2) 
   {
-    float r = dist(p1.getXPos(),p1.getYPos(),p2.getXPos(),p2.getYPos());
+    float r = dist(p1.getPos().x,p1.getPos().y,p2.getPos().x,p2.getPos().y);
     float rSquared = pow(r,2);
-    float xDist = p1.getXPos() - p2.getXPos();
-    float yDist = p1.getYPos() - p2.getYPos();
-    if (hSquared > rSquared) 
+    PVector distance = new PVector(p1.getPos().x - p2.getPos().x,p1.getPos().y - p2.getPos().y);
+    if ((hSquared > rSquared) && (r != 0)) 
     {
       float pressureForce = (p2.getMass()*(p1.getPressure() + p2.getPressure()) / (2 * p2.getDensity())) * spikyConst * pow((h - r), 3);
-      float pressureXForce = pressureForce * (xDist / r);
-      float pressureYForce = pressureForce * (yDist / r);
-      p1.accelerate(pressureXForce, pressureYForce);
+      PVector pressureVecForce = new PVector(pressureForce * (distance.x / r),pressureForce * (distance.y / r));
+      p1.accelerate(pressureVecForce.x, pressureVecForce.y);
       pressureForce = (p1.getMass()*(p2.getPressure() + p1.getPressure()) / (2 * p1.getDensity())) * spikyConst * pow((h - r), 3);
-      pressureXForce = -pressureForce * (xDist / r);
-      pressureYForce = -pressureForce * (yDist / r);
-      p2.accelerate(pressureXForce, pressureYForce);
+      pressureVecForce.set((-1) * pressureForce * (distance.x / r),(-1) * pressureForce * (distance.y / r));
+      p2.accelerate(pressureVecForce.x, pressureVecForce.y);
     }
   }
 
-  
+  void calculateSurfaceTension(Particle p1, Particle p2) 
+  {
+    float r = dist(p1.getPos().x,p1.getPos().y,p2.getPos().x,p2.getPos().y);
+    float rSquared = pow(r,2);
+    PVector distance = new PVector(p1.getPos().x - p2.getPos().x,p1.getPos().y - p2.getPos().y);
+    if ((hSquared > rSquared) && (r!= 0)) 
+    {
+      float n = (p1.getMass()/p1.getDensity()) * poly6Const * pow((hSquared - rSquared), 3);
+      float surfaceForce = (p1.getMass() / p1.getDensity()) * poly6GradConst * (5*(pow(rSquared - hSquared,2))* (n / abs(n)));//?
+      PVector surfaceVecForce = new PVector(surfaceForce * (distance.x / r), surfaceForce * (distance.y / r));
+      p1.accelerate(surfaceVecForce.x, surfaceVecForce.y);
+      n = (p2.getMass() / p2.getDensity()) * poly6Const * pow((hSquared - rSquared), 3);
+      //surfaceForce = (p2.getMass() / p2.getDensity()) * poly6GradConst * (5*(pow(rSquared - hSquared,2))* (n / abs(n)));//?
+      surfaceForce = currentFluid.getTimeStep()*(p2.getMass() / p2.getDensity()) * poly6GradConst * (rSquared - hSquared)* (n / abs(n));
+      surfaceVecForce.set((-1) * surfaceForce * (distance.x / r), (-1) * surfaceForce * (distance.y / r));
+      p2.accelerate(surfaceVecForce.x, surfaceVecForce.y);
+    }
+  }  
   
 }
