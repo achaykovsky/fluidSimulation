@@ -8,10 +8,9 @@ class Particle
     color colour = color(30,193,250);
     float mass;
     float density;
-    float viscosity;
     float pressure;
     float restDensity;
-    float dt;
+    //float dt;
   
   //c'tor for the update from GUI option
   Particle(float _xPos, float _yPos, float _mass, float _restDensity)
@@ -22,7 +21,6 @@ class Particle
     this.colour = color(30,193,250);
     this.mass = _mass;
     this.restDensity = _restDensity;
-    //this.viscosity = _viscosity;
     this.density = 0;
     this.pressure = 0;
   }
@@ -34,7 +32,6 @@ class Particle
     this.velocity.set(0.1,0.1);
     this.colour = color(30,193,250);
     this.mass = 0;
-    this.viscosity = 0;
     this.density = 0;
     this.pressure = 0;
   }
@@ -48,7 +45,6 @@ class Particle
     this.colour = particle.colour;
     this.mass = particle.mass;
     this.restDensity = particle.restDensity;
-    this.viscosity = particle.viscosity;
     this.density = particle.density;
     this.pressure = particle.pressure;
    }
@@ -58,7 +54,7 @@ class Particle
        fill(colour);
        noStroke();
        circle(position.x, position.y, h*7);
-       text(index, position.x, position.y);
+       //text(index, position.x, position.y);
     } 
     
 
@@ -71,11 +67,6 @@ class Particle
     float getMass()
     {
       return mass;
-    }
-    
-    float getViscosity()
-    {
-      return viscosity;
     }
     
     int getIndex()
