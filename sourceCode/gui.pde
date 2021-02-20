@@ -26,28 +26,20 @@ public void fluidViscosity_change(GSlider source, GEvent event) { //_CODE_:slide
 
 public void update_click(GButton source, GEvent event) { //_CODE_:btnUpdate:391167:
 
-  int newParticlesNum = Integer.parseInt(txtParticlesNum.getText());
-  float newTimeStep = Float.parseFloat(txtTimeStep.getText());
-  if ((newTimeStep!=0) && (newParticlesNum!=0))
-  {
     float newMass = sliderMass.getValueF();
     float newRestDensity = sliderRestDensity.getValueF();
     float newH = sliderH.getValueF();
     float newFluidViscosity = sliderFluidViscosity.getValueF();
+    float newTimeStep = sliderTimeStep.getValueF();
+    int newParticlesNum = sliderParticlesNum.getValueI();
     currentFluid.setTimeStep(newTimeStep);
     currentFluid.setRestDensity(newRestDensity);
     currentFluid.setH(newH);
     currentFluid.setFluidViscosity(newFluidViscosity);
     currentFluid.setParticlesNumber(newParticlesNum); 
     currentFluid.updateParticles(newParticlesNum, newMass, newRestDensity);
-  }
+    
 } //_CODE_:btnUpdate:391167:
-
-public void txtParticlesNum_change(GTextField source, GEvent event) { //_CODE_:txtParticlesNum:283906:
-} //_CODE_:txtParticlesNum:283906:
-
-public void txtTimeStep_change(GTextField source, GEvent event) { //_CODE_:txtTimeStep:694139:
-} //_CODE_:txtTimeStep:694139:
 
 public void sliderH_change(GSlider source, GEvent event) { //_CODE_:sliderH:211409:
 } //_CODE_:sliderH:211409:
@@ -59,6 +51,12 @@ public void play(GButton source, GEvent event) { //_CODE_:btnPlay:832565:
 public void pause(GButton source, GEvent event) { //_CODE_:btnPause:309183:
   noLoop();
 } //_CODE_:btnPause:309183:
+
+public void timeStep_change(GSlider source, GEvent event) { //_CODE_:sliderTimeStep:728209:
+} //_CODE_:sliderTimeStep:728209:
+
+public void particlesNum_change(GSlider source, GEvent event) { //_CODE_:sliderParticlesNum:685959:
+} //_CODE_:sliderParticlesNum:685959:
 
 
 
@@ -77,11 +75,11 @@ public void createGUI(){
   lblMass.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   lblMass.setText("Mass(gr.)");
   lblMass.setOpaque(false);
-  lblRestDensity = new GLabel(this, 337, 451, 141, 34);
+  lblRestDensity = new GLabel(this, 337, 439, 141, 34);
   lblRestDensity.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   lblRestDensity.setText("Rest Density");
   lblRestDensity.setOpaque(false);
-  lblFluidViscosity = new GLabel(this, 57, 356, 80, 20);
+  lblFluidViscosity = new GLabel(this, 62, 454, 80, 20);
   lblFluidViscosity.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   lblFluidViscosity.setText("µ");
   lblFluidViscosity.setOpaque(false);
@@ -94,22 +92,22 @@ public void createGUI(){
   sliderMass.setLocalColorScheme(GCScheme.RED_SCHEME);
   sliderMass.setOpaque(false);
   sliderMass.addEventHandler(this, "mass_change");
-  sliderRestDensity = new GSlider(this, 357, 505, 100, 53, 10.0);
+  sliderRestDensity = new GSlider(this, 354, 492, 100, 53, 10.0);
   sliderRestDensity.setShowValue(true);
   sliderRestDensity.setShowLimits(true);
   sliderRestDensity.setLimits(0.5, 0.1, 1.0);
   sliderRestDensity.setShowTicks(true);
   sliderRestDensity.setNumberFormat(G4P.DECIMAL, 2);
-  sliderRestDensity.setLocalColorScheme(GCScheme.GREEN_SCHEME);
+  sliderRestDensity.setLocalColorScheme(GCScheme.GOLD_SCHEME);
   sliderRestDensity.setOpaque(false);
   sliderRestDensity.addEventHandler(this, "restDensity_change");
-  sliderFluidViscosity = new GSlider(this, 47, 391, 100, 51, 10.0);
+  sliderFluidViscosity = new GSlider(this, 54, 494, 100, 57, 10.0);
   sliderFluidViscosity.setShowValue(true);
   sliderFluidViscosity.setShowLimits(true);
   sliderFluidViscosity.setLimits(0.5, 0.1, 1.5);
   sliderFluidViscosity.setShowTicks(true);
   sliderFluidViscosity.setNumberFormat(G4P.DECIMAL, 2);
-  sliderFluidViscosity.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
+  sliderFluidViscosity.setLocalColorScheme(GCScheme.CYAN_SCHEME);
   sliderFluidViscosity.setOpaque(false);
   sliderFluidViscosity.addEventHandler(this, "fluidViscosity_change");
   lblParticleOptions = new GLabel(this, 301, 111, 194, 75);
@@ -124,14 +122,6 @@ public void createGUI(){
   btnUpdate.setText("Update");
   btnUpdate.setLocalColorScheme(GCScheme.GOLD_SCHEME);
   btnUpdate.addEventHandler(this, "update_click");
-  txtParticlesNum = new GTextField(this, 48, 219, 120, 30, G4P.SCROLLBARS_NONE);
-  txtParticlesNum.setPromptText("Number of Particles");
-  txtParticlesNum.setOpaque(false);
-  txtParticlesNum.addEventHandler(this, "txtParticlesNum_change");
-  txtTimeStep = new GTextField(this, 46, 270, 120, 30, G4P.SCROLLBARS_NONE);
-  txtTimeStep.setPromptText("Time Step");
-  txtTimeStep.setOpaque(true);
-  txtTimeStep.addEventHandler(this, "txtTimeStep_change");
   lblH = new GLabel(this, 355, 321, 80, 20);
   lblH.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   lblH.setText("h");
@@ -142,12 +132,12 @@ public void createGUI(){
   sliderH.setLimits(0.5, 0.1, 1.0);
   sliderH.setShowTicks(true);
   sliderH.setNumberFormat(G4P.DECIMAL, 2);
-  sliderH.setLocalColorScheme(GCScheme.CYAN_SCHEME);
+  sliderH.setLocalColorScheme(GCScheme.ORANGE_SCHEME);
   sliderH.setOpaque(false);
   sliderH.addEventHandler(this, "sliderH_change");
-  lblParticlesNum = new GLabel(this, 756, 787, 274, 33);
-  lblParticlesNum.setText("Number Of Particles:");
-  lblParticlesNum.setOpaque(false);
+  lblCurrParticlesNum = new GLabel(this, 756, 787, 274, 33);
+  lblCurrParticlesNum.setText("Number Of Particles:");
+  lblCurrParticlesNum.setOpaque(false);
   lblSimulation = new GLabel(this, 836, 12, 166, 64);
   lblSimulation.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   lblSimulation.setText("Simulation");
@@ -179,6 +169,31 @@ public void createGUI(){
   btnPause.setText("Pause");
   btnPause.setLocalColorScheme(GCScheme.GOLD_SCHEME);
   btnPause.addEventHandler(this, "pause");
+  sliderTimeStep = new GSlider(this, 53, 360, 98, 60, 10.0);
+  sliderTimeStep.setShowValue(true);
+  sliderTimeStep.setShowLimits(true);
+  sliderTimeStep.setLimits(0.05, 0.05, 0.5);
+  sliderTimeStep.setShowTicks(true);
+  sliderTimeStep.setNumberFormat(G4P.DECIMAL, 0);
+  sliderTimeStep.setOpaque(false);
+  sliderTimeStep.addEventHandler(this, "timeStep_change");
+  sliderParticlesNum = new GSlider(this, 51, 251, 100, 56, 10.0);
+  sliderParticlesNum.setShowValue(true);
+  sliderParticlesNum.setShowLimits(true);
+  sliderParticlesNum.setLimits(100, 10, 300);
+  sliderParticlesNum.setShowTicks(true);
+  sliderParticlesNum.setNumberFormat(G4P.INTEGER, 0);
+  sliderParticlesNum.setLocalColorScheme(GCScheme.PURPLE_SCHEME);
+  sliderParticlesNum.setOpaque(false);
+  sliderParticlesNum.addEventHandler(this, "particlesNum_change");
+  lblParticleNum = new GLabel(this, 35, 216, 133, 23);
+  lblParticleNum.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  lblParticleNum.setText("Particles Number");
+  lblParticleNum.setOpaque(false);
+  lblTimeStep = new GLabel(this, 62, 329, 80, 20);
+  lblTimeStep.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
+  lblTimeStep.setText("Time Step");
+  lblTimeStep.setOpaque(false);
 }
 
 // Variable declarations 
@@ -193,11 +208,9 @@ GSlider sliderFluidViscosity;
 GLabel lblParticleOptions; 
 GLabel lblFluidOptions; 
 GButton btnUpdate; 
-GTextField txtParticlesNum; 
-GTextField txtTimeStep; 
 GLabel lblH; 
 GSlider sliderH; 
-GLabel lblParticlesNum; 
+GLabel lblCurrParticlesNum; 
 GLabel lblSimulation; 
 GLabel lblCurrent; 
 GLabel lblCurrMass; 
@@ -207,3 +220,7 @@ GLabel lblCurrMyu;
 GLabel lblCurrTimeStep; 
 GButton btnPlay; 
 GButton btnPause; 
+GSlider sliderTimeStep; 
+GSlider sliderParticlesNum; 
+GLabel lblParticleNum; 
+GLabel lblTimeStep; 
