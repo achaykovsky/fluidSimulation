@@ -81,6 +81,11 @@ Exams period - took a break from programming.
 2. Updated some variables and functions to work on vectors basis for a cleaner code.
 3. Checking out the positions issue (splashes that appear in lines).
 
+## Seventeen Week:
+1. Updated the GUI - replaced the text fields with sliders
+2. Cleaned some of the code that was redundant
+3. Commited everything I've done so far.
+Still trying to understand where the problem with the lines (I still have exams).
 
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
