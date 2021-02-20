@@ -24,7 +24,7 @@ void draw()
   background(230);
   fill(255,255,255);
   stroke(0,0,0);
-  rect(600,75,680,600);
+  rect(600,70,680,680);
   int index = 0;
   for (Particle p : currentFluid.particles) 
   {
@@ -34,7 +34,7 @@ void draw()
     currentFluid.grid.particlesMatrix(currentFluid.particles);
     currentFluid.grid.sortParticles(currentFluid.particles);
     currentFluid.grid.initialize(currentFluid.particles);
-    currentFluid.calculatePressure(); //<>// //<>//
+    currentFluid.calculatePressure();  //<>//
     currentFluid.calculateForces();
     p.updateVelocity(currentFluid.getTimeStep());
     currentFluid.boundaries();
@@ -57,8 +57,8 @@ void guiModifications()
   lblFluidViscosity.setFont(new Font("Arial", Font.PLAIN, 15)); 
   lblRestDensity.setFont(new Font("Arial", Font.PLAIN, 15)); 
   lblH.setFont(new Font("Arial", Font.PLAIN, 15));
-  lblParticlesNum.setText("Number Of Particles: " + currentFluid.getParticlesNumber());
-  lblParticlesNum.setFont(new Font("Arial", Font.PLAIN, 15));
+  lblCurrParticlesNum.setText("Number Of Particles: " + currentFluid.getParticlesNumber());
+  lblCurrParticlesNum.setFont(new Font("Arial", Font.PLAIN, 15));
   lblSimulation.setFont(new Font("Arial", Font.PLAIN, 20));
   lblSimulation.setLocalColorScheme(0);
   lblCurrent.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -71,6 +71,8 @@ void guiModifications()
   lblCurrRestDensity.setFont(new Font("Arial", Font.PLAIN, 15));
   lblCurrMyu.setText("µ: " + String.format("%.2f",currentFluid.getFluidViscosity()));
   lblCurrMyu.setFont(new Font("Arial", Font.PLAIN, 15));
-  lblCurrTimeStep.setText("Time Step: " + currentFluid.getTimeStep());
+  lblCurrTimeStep.setText("Time Step: " + String.format("%.2f",currentFluid.getTimeStep()));
   lblCurrTimeStep.setFont(new Font("Arial", Font.PLAIN, 15));
+  lblTimeStep.setFont(new Font("Arial", Font.PLAIN, 15));
+  lblParticleNum.setFont(new Font("Arial", Font.PLAIN, 15));
 }
