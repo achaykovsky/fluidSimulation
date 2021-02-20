@@ -1,24 +1,27 @@
 class ParticleSpace
 {
-    int gridX = 0, gridY = 0;
+    int gridX, gridY;
     int[] hashTable;
     int gridSize;
+    float size;
   
   ParticleSpace(float XLength, float YHeight, float h)
   {
     gridX = floor(XLength / h);
     gridY = floor(YHeight / h);
     gridSize = gridX * gridY;
+    size = h;
   
     int[] _hashTable = new int[gridSize];
     hashTable = _hashTable;
+    
   }
 
   //setting the indices for each particle
   void particlesMatrix(Particle[] particles) 
   {
     for (int i = 0; i < particles.length; i++) 
-      particles[i].setIndex(((floor(particles[i].getXPos()/gridX)) + (floor(particles[i].getYPos()/gridX)))%gridSize); //<>//
+      particles[i].setIndex(((floor(particles[i].getPos().x/size)) + (floor(particles[i].getPos().y/size)))); //<>//
   }
 
   //finding the maximal index in the hash
@@ -27,8 +30,12 @@ class ParticleSpace
     int maxIndx;
     int[] indices = new int[particles.length];
     for (int i = 0; i < particles.length; i++)
+    {
         indices[i] = particles[i].getIndex();
+        //println("indices[i] " + i + " "+ indices[i]);
+    }
     maxIndx = max(indices);
+    //println("maxIndx " + maxIndx);
     return maxIndx;
   }
 
@@ -69,14 +76,24 @@ class ParticleSpace
   void initialize(Particle[] particles) 
   {
     int lastIndex = 0;
+    boolean firstIndex = false;
     for (int i = 0; i < particles.length; i++) 
     {
+     if (particles[i].getIndex() == 0 && firstIndex == false) 
+          {
+          hashTable[0] = 0;
+          firstIndex = true;
+          }
+     else 
+         {
+           hashTable[0] = EMPTY;
+         }
       if (particles[i].getIndex() > lastIndex) 
       {
-        for (int index = lastIndex; index < particles[i].getIndex(); index++) 
+        for (int index = lastIndex; index < particles[i].getIndex(); index++)
           hashTable[index] = EMPTY;
-          hashTable[particles[i].getIndex()] = i;
-          lastIndex = particles[i].getIndex();
+        hashTable[particles[i].getIndex()] = i;
+        lastIndex = particles[i].getIndex();
       }
       if ((i == (particles.length - 1)) && (particles[i].getIndex() < (gridSize - 1))) 
       {
@@ -203,14 +220,14 @@ class ParticleSpace
     return false;
   }
   
-  //boolean hasLeft(int index) 
-  //{
-  //  if (index % gridX != 0) 
-  //  {
-  //    if (hashTable[index - 1] != EMPTY) 
-  //      return true;
-  //  }
-  //  return false;
-  //}
+  boolean hasLeft(int index) 
+  {
+    if (index % gridX != 0) 
+    {
+      if (hashTable[index - 1] != EMPTY) 
+        return true;
+    }
+    return false;
+  }
 
 }
