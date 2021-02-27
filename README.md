@@ -87,6 +87,12 @@ Exams period - took a break from programming.
 3. Commited everything I've done so far.
 Still trying to understand where the problem with the lines (I still have exams).
 
+## Eightnteen Week:
+1. Figured out the problem with the lines.
+2. Checking out why the particles are all on the same level, in the end.
+
+
+
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
 
