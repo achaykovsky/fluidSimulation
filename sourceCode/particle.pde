@@ -3,21 +3,20 @@ class Particle
     int index;
     float r;
     PVector position = new PVector(1150,180);   
-    PVector velocity = new PVector(0.1,0.1);
+    PVector velocity = new PVector(0.1,0.2);
     PVector dVelocity = new PVector(0,0);
     color colour = color(30,193,250);
     float mass;
     float density;
     float pressure;
     float restDensity;
-    //float dt;
   
   //c'tor for the update from GUI option
   Particle(float _xPos, float _yPos, float _mass, float _restDensity)
   {
     this.position.set(_xPos,_yPos);
     this.dVelocity.set(0,0);
-    this.velocity.set(0.1,0.1);
+    this.velocity.set(0.1,0.2);
     this.colour = color(30,193,250);
     this.mass = _mass;
     this.restDensity = _restDensity;
@@ -29,7 +28,7 @@ class Particle
   Particle()
   {
     this.position.set(600,180);
-    this.velocity.set(0.1,0.1);
+    this.velocity.set(0,0);
     this.colour = color(30,193,250);
     this.mass = 0;
     this.density = 0;
@@ -51,9 +50,11 @@ class Particle
   
     void display(float h, int index) 
     {
+       float scale;
+       scale = h * height * 0.01;
        fill(colour);
        noStroke();
-       circle(position.x, position.y, h*7);
+       circle(position.x, position.y, scale);
        //text(index, position.x, position.y);
     } 
     
@@ -163,7 +164,7 @@ class Particle
       position.y += velocity.y * dt;
       
       //initialzing params for the next iteration
-      dVelocity.set(0,0);
+      //dVelocity.set(0,0);
       density = 0;
       pressure = 0;
     }
