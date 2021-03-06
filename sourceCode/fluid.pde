@@ -3,7 +3,7 @@ class Fluid
   int particlesNumber = 100;
   float h = 1;
   float restDensity = 0.05;
-  float timeStep = 0.05;
+  float timeStep = 0.1; //slower: 18e-4
   float fluidViscosity = 0.1;
   
   Forces forces = new Forces(h);

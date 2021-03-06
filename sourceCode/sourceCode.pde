@@ -3,7 +3,7 @@ import java.awt.*;
 GWindow Screen;
  
 final int EMPTY = -1;
-final float k = 8.314472; 
+final float k = 8.314472;
 
 //make fluid
 Fluid currentFluid = new Fluid();

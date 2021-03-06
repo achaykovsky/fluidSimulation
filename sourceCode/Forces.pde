@@ -76,7 +76,6 @@ class Forces
       PVector surfaceVecForce = new PVector(surfaceForce * (distance.x / r), surfaceForce * (distance.y / r));
       p1.accelerate(surfaceVecForce.x, surfaceVecForce.y);
       n = (p2.getMass() / p2.getDensity()) * poly6Const * pow((hSquared - rSquared), 3);
-      //surfaceForce = (p2.getMass() / p2.getDensity()) * poly6GradConst * (5*(pow(rSquared - hSquared,2))* (n / abs(n)));//?
       surfaceForce = currentFluid.getTimeStep()*(p2.getMass() / p2.getDensity()) * poly6GradConst * (rSquared - hSquared)* (n / abs(n));
       surfaceVecForce.set((-1) * surfaceForce * (distance.x / r), (-1) * surfaceForce * (distance.y / r));
       p2.accelerate(surfaceVecForce.x, surfaceVecForce.y);
