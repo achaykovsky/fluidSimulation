@@ -96,6 +96,10 @@ Still trying to understand where the problem with the lines (I still have exams)
 2. Added scaling to the paticles size
 Still checking out why the particles are all on the same level, in the end (I still have exams).
 
+## 20th Week:
+Reviewed again the code and looked for a solution in a new article.
+Besides that, couldn't do much - had to finish my exams.
+
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
 
