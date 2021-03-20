@@ -100,6 +100,10 @@ Still checking out why the particles are all on the same level, in the end (I st
 Reviewed again the code and looked for a solution in a new article.
 Besides that, couldn't do much - had to finish my exams.
 
+## 21th Week:
+1. Tried to tune some of the formulas on the forces class.
+2. Also, looked for a way to smooth the particles - and make it more similar to a liquid. 
+
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
 
