@@ -3,7 +3,9 @@ class Particle
     int index;
     float r;
     PVector position = new PVector(1150,180);   
-    PVector velocity = new PVector(0.1,0.2);
+    PVector velocity = new PVector (0.1,0.2);
+    PVector gravAcceleration = new PVector (0.0, 9.8);
+    PVector gravForce = new PVector (0.0, 0.0);
     PVector dVelocity = new PVector(0,0);
     color colour = color(30,193,250);
     float mass;
@@ -53,10 +55,10 @@ class Particle
        float scale;
        scale = h * height * 0.01;
        fill(colour);
-       noStroke();
+       //noStroke();
        circle(position.x, position.y, scale);
        //text(index, position.x, position.y);
-    } 
+    }
     
 
     //getters
@@ -138,6 +140,8 @@ class Particle
     {
       index = _index;
     }
+   
+
 
 
 //functions to update the velocity, using acceleration
@@ -164,7 +168,7 @@ class Particle
       position.y += velocity.y * dt;
       
       //initialzing params for the next iteration
-      //dVelocity.set(0,0);
+      dVelocity.set(0,0);
       density = 0;
       pressure = 0;
     }
