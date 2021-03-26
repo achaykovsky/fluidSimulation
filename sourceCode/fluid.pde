@@ -3,10 +3,11 @@ class Fluid
   int particlesNumber = 100;
   float h = 1;
   float restDensity = 0.05;
-  float timeStep = 0.1; //slower: 18e-4
+  float timeStep = 0.1; 
   float fluidViscosity = 0.1;
   
   Forces forces = new Forces(h);
+  //Collisions collisions = new Collisions();
   Particle[] particles = new Particle[particlesNumber];
   ParticleSpace grid = new ParticleSpace(680, 675, h);
   
@@ -148,51 +149,50 @@ class Fluid
           inc++;
         }
       }
-      //
-      //if (grid.hasLeft(particles[i].getIndex())) 
-      //{
-      //  inc = 0;
-      //  i = grid.getLeftPosition(particles[i].getIndex());
-      //  println("here");
-      //  while ((particlesNumber > i + inc) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
-      //  {
-      //    forces.calculateDensity(particles[i], particles[i + inc]);
-      //    inc++;
-      //  }
-      //}
-      //
-      // if (grid.hasTop(particles[i].getIndex())) 
-      //{
-      //  inc = 0;
-      //  i = grid.getTopPosition(particles[i].getIndex());
-      //  while ((particlesNumber > i + inc) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
-      //  {
-      //    forces.calculateDensity(particles[i], particles[i + inc]);
-      //    inc++;
-      //  }
-      //}
-      //
-      //if (grid.hasTopRight(particles[i].getIndex())) 
-      //{
-      //  inc = 0;
-      //  i = grid.getTopRightPosition(particles[i].getIndex());
-      //  while ((particlesNumber > i + inc) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
-      //  {
-      //    forces.calculateDensity(particles[i], particles[i + inc]);
-      //    inc++;
-      //  }
-      //}
       
-      //if (grid.hasTopLeft(particles[i].getIndex())) 
-      //{
-      //  inc = 0;
-      //  i = grid.getTopLeftPosition(particles[i].getIndex());
-      //  while ((particlesNumber > i + inc) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
-      //  {
-      //    forces.calculateDensity(particles[i], particles[i + inc]);
-      //    inc++;
-      //  }
-      //}
+      if (grid.hasLeft(particles[i].getIndex())) 
+      {
+        inc = 0;
+        i = grid.getLeftPosition(particles[i].getIndex());
+        while ((particlesNumber > i + inc) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
+        {
+          forces.calculateDensity(particles[i], particles[i + inc]);
+          inc++;
+        }
+      }
+      
+       if (grid.hasTop(particles[i].getIndex())) 
+      {
+        inc = 0;
+        i = grid.getTopPosition(particles[i].getIndex());
+        while ((particlesNumber > i + inc) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
+        {
+          forces.calculateDensity(particles[i], particles[i + inc]);
+          inc++;
+        }
+      }
+      
+      if (grid.hasTopRight(particles[i].getIndex())) 
+      {
+        inc = 0;
+        i = grid.getTopRightPosition(particles[i].getIndex());
+        while ((particlesNumber > i + inc) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
+        {
+          forces.calculateDensity(particles[i], particles[i + inc]);
+          inc++;
+        }
+      }
+      
+      if (grid.hasTopLeft(particles[i].getIndex())) 
+      {
+        inc = 0;
+        i = grid.getTopLeftPosition(particles[i].getIndex());
+        while ((particlesNumber > i + inc) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
+        {
+          forces.calculateDensity(particles[i], particles[i + inc]);
+          inc++;
+        }
+      }
       particles[i].setPressure();
     }
   }
@@ -213,6 +213,9 @@ class Fluid
           forces.calculateParticlesPressure(particles[i], particles[i + inc]);
           forces.calculateViscosity(particles[i], particles[i + inc]);
           forces.calculateSurfaceTension(particles[i], particles[i + inc]);
+          forces.calculateGravityForce(particles[i]);
+          forces.calculateGravityForce(particles[i + inc]);
+          //collisions.detectCollisions(particles);
           inc++;
         }
       }
@@ -227,6 +230,9 @@ class Fluid
           forces.calculateParticlesPressure(particles[i], particles[index + inc]);
           forces.calculateViscosity(particles[i], particles[index + inc]);
           forces.calculateSurfaceTension(particles[i], particles[index + inc]);
+          forces.calculateGravityForce(particles[i]);
+          forces.calculateGravityForce(particles[i + inc]);
+          //collisions.detectCollisions(particles);
           inc++;
         }
       }
@@ -240,6 +246,9 @@ class Fluid
           forces.calculateParticlesPressure(particles[i], particles[index + inc]);
           forces.calculateViscosity(particles[i], particles[index + inc]);
           forces.calculateSurfaceTension(particles[i], particles[index + inc]);
+          forces.calculateGravityForce(particles[i]);
+          forces.calculateGravityForce(particles[i + inc]);
+          //collisions.detectCollisions(particles);
           inc++;
         }
       }
@@ -253,6 +262,9 @@ class Fluid
           forces.calculateParticlesPressure(particles[i], particles[index + inc]);
           forces.calculateViscosity(particles[i], particles[index + inc]);
           forces.calculateSurfaceTension(particles[i], particles[index + inc]);
+          forces.calculateGravityForce(particles[i]);
+          forces.calculateGravityForce(particles[i + inc]);
+          //collisions.detectCollisions(particles);
           inc++;
         }
       }
@@ -266,20 +278,76 @@ class Fluid
           forces.calculateParticlesPressure(particles[i], particles[index + inc]);
           forces.calculateViscosity(particles[i], particles[index + inc]);
           forces.calculateSurfaceTension(particles[i], particles[index + inc]);
+          forces.calculateGravityForce(particles[i]);
+          forces.calculateGravityForce(particles[i + inc]);
+          //collisions.detectCollisions(particles);
+          inc++;
+        }
+      }
+
+      if (grid.hasTopLeft(particles[i].getIndex())) 
+      {
+        inc = 0;
+        index = grid.getRightPosition(particles[i].getIndex());
+        while ((particlesNumber > index + inc) && (particles[index].getIndex() == particles[index + inc].getIndex())) 
+        {
+          forces.calculateParticlesPressure(particles[i], particles[index + inc]);
+          forces.calculateViscosity(particles[i], particles[index + inc]);
+          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
+          forces.calculateGravityForce(particles[i]);
+          forces.calculateGravityForce(particles[i + inc]);
+          //collisions.detectCollisions(particles);
+          inc++;
+        }
+      }
+      
+      if (grid.hasTop(particles[i].getIndex())) 
+      {
+        inc = 0;
+        index = grid.getTopPosition(particles[i].getIndex());
+        while ((particlesNumber > index + inc) && (particles[index].getIndex() == particles[index + inc].getIndex())) 
+        {
+          forces.calculateParticlesPressure(particles[i], particles[index + inc]);
+          forces.calculateViscosity(particles[i], particles[index + inc]);
+          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
+          forces.calculateGravityForce(particles[i]);
+          forces.calculateGravityForce(particles[i + inc]);
+          //collisions.detectCollisions(particles);
+          inc++;
+        }
+      }
+      
+      if (grid.hasTopRight(particles[i].getIndex())) 
+      {
+        inc = 0;
+        index = grid.getTopRightPosition(particles[i].getIndex());
+        while ((particlesNumber > index + inc) && (particles[index].getIndex() == particles[index + inc].getIndex())) 
+        {
+          forces.calculateParticlesPressure(particles[i], particles[index + inc]);
+          forces.calculateViscosity(particles[i], particles[index + inc]);
+          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
+          forces.calculateGravityForce(particles[i]);
+          forces.calculateGravityForce(particles[i + inc]);
+          //collisions.detectCollisions(particles);
+          inc++;
+        }
+      }
+      if (grid.hasLeft(particles[i].getIndex())) 
+      {
+        inc = 0;
+        index = grid.getLeftPosition(particles[i].getIndex());
+        while ((particlesNumber > index + inc) && (particles[index].getIndex() == particles[index + inc].getIndex())) 
+        {
+          forces.calculateParticlesPressure(particles[i], particles[index + inc]);
+          forces.calculateViscosity(particles[i], particles[index + inc]);
+          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
+          forces.calculateGravityForce(particles[i]);
+          forces.calculateGravityForce(particles[i + inc]);
+          //collisions.detectCollisions(particles);
           inc++;
         }
       }
       particles[i].accelerate(0, particles[i].getDensity());
-    }
-  }
-  
-  
-  //update color from the GUI
-  void updateColour(color colour) 
-  {
-    for (int i = 1; i < particles.length; i++) 
-    {
-      particles[i].colour = colour;
     }
   }
   
@@ -291,28 +359,25 @@ class Fluid
       if (particles[i].getPos().x <= 600) 
       {
         particles[i].setX(600.1);
-        particles[i].setXVelocity(particles[i].getVelocity().x*(-1));
+        particles[i].setXVelocity(particles[i].getVelocity().x*(-0.5));
       }
       if (particles[i].getPos().x >= 1280) 
       {
         particles[i].setX(1279.9);
-        particles[i].setXVelocity(particles[i].getVelocity().x*(-1));
+        particles[i].setXVelocity(particles[i].getVelocity().x*(-0.5));
       }
       if (particles[i].getPos().y <= 75) 
       {
         particles[i].setY(75.1);
-        particles[i].setYVelocity(particles[i].getVelocity().y*(-1));
+        particles[i].setYVelocity(particles[i].getVelocity().y*(-0.5));
       }
       if (particles[i].getPos().y >= 750) 
       {
         particles[i].setY(749.9);
-        particles[i].setYVelocity(particles[i].getVelocity().y*(-1));
+        particles[i].setYVelocity(particles[i].getVelocity().y*(-0.5));
       }
     }
   }
   
-    
-  
- 
   
 }

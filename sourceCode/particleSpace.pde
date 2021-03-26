@@ -69,7 +69,7 @@ class ParticleSpace
   void sortParticles(Particle[] particles)
   {
     int maxIndex = getMaxIndex(particles);
-    for (int exp = 1; maxIndex / exp > 0; exp *= 10)
+    for (int exp = 1; maxIndex / exp > 0; exp *= 5)
       countingSort(particles, exp);
   }
 
@@ -103,25 +103,21 @@ class ParticleSpace
     }
   }
 
-  //int getCenterPosition(int index) 
-  //{
-  //  return hashTable[index];
-  //}
 
-  //int getTopLeftPosition(int index) 
-  //{
-  //  return hashTable[index - gridY - 1];
-  //}
+  int getTopLeftPosition(int index) 
+  {
+    return hashTable[index - gridX - 1];
+  }
 
-  //int getTopPosition(int index) 
-  //{
-  //  return hashTable[index - gridY];
-  //}
+  int getTopPosition(int index) 
+  {
+    return hashTable[index - gridX];
+  }
 
-  //int getTopRightPosition(int index) 
-  //{
-  //  return hashTable[index - gridX + 1];
-  //}
+  int getTopRightPosition(int index) 
+  {
+    return hashTable[index - gridX + 1];
+  }
   
   int getRightPosition(int index) 
   {
@@ -143,41 +139,41 @@ class ParticleSpace
     return hashTable[index + gridX - 1];
   }
   
-  //int getLeftPosition(int index) 
-  //{
-  //  return hashTable[index - 1];
-  //}
+  int getLeftPosition(int index) 
+  {
+    return hashTable[index - 1];
+  }
   
   
-  //boolean hasTopLeft(int index) 
-  //{
-  //  if ((index % gridX != 0) && (index >= gridX)) 
-  //  {
-  //    if (hashTable[index - gridX - 1] != EMPTY) 
-  //      return true;
-  //  }
-  //  return false;
-  //}
+  boolean hasTopLeft(int index) 
+  {
+    if ((index % gridX != 0) && (index >= gridX)) 
+    {
+      if (hashTable[index - gridX - 1] != EMPTY) 
+        return true;
+    }
+    return false;
+  }
 
-  //boolean hasTop(int index) 
-  //{
-  //  if (index >= gridX) 
-  //  {
-  //    if (hashTable[index - gridX] != EMPTY) 
-  //      return true;
-  //  }
-  //  return false;
-  //}
+  boolean hasTop(int index) 
+  {
+    if (index >= gridX) 
+    {
+      if (hashTable[index - gridX] != EMPTY) 
+        return true;
+    }
+    return false;
+  }
   
-  //boolean hasTopRight(int index) 
-  //{
-  //  if ((index % gridX != gridX - 1) && (index >= gridX)) 
-  //  {
-  //    if (hashTable[index - gridX + 1] != EMPTY) 
-  //      return true;
-  //  }
-  //  return false;
-  //}
+  boolean hasTopRight(int index) 
+  {
+    if ((index % gridX != gridX - 1) && (index >= gridX)) 
+    {
+      if (hashTable[index - gridX + 1] != EMPTY) 
+        return true;
+    }
+    return false;
+  }
 
   boolean hasRight(int index) 
   {
