@@ -104,6 +104,12 @@ Besides that, couldn't do much - had to finish my exams.
 1. Tried to tune some of the formulas on the forces class.
 2. Also, looked for a way to smooth the particles - and make it more similar to a liquid. 
 
+## 22th Week:
+1. Added the gravity force
+2. Changed boundary collision param 
+3. Removed redundant code
+4. Working on the collisions - trying to make the particles to be ordered in layers (not commited yet)
+
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
 
