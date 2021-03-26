@@ -69,7 +69,7 @@ class ParticleSpace
   void sortParticles(Particle[] particles)
   {
     int maxIndex = getMaxIndex(particles);
-    for (int exp = 1; maxIndex / exp > 0; exp *= 5)
+    for (int exp = 1; maxIndex / exp > 0; exp *= 10)
       countingSort(particles, exp);
   }
 
