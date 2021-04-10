@@ -115,6 +115,11 @@ Besides that, couldn't do much - had to finish my exams.
 2. Reached some improvements on the collisions, but it doesn't get ordered in layers yet.
 Also looks like it doesn't work combined, trying to find out why.
 
+## 24th Week:
+Done with the exams period(finally!). 
+Checked out a few theoris to fix the layers problem.
+
+
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
 
