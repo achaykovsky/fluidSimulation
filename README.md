@@ -123,6 +123,10 @@ Checked out a few theoris to fix the layers problem.
 1. Working on changing the code to make the particles to pile up.
 2. Working on fixing the collisions.
 
+## 26th Week:
+Tried another algorithm and other formulas for the forces from another article to make it pile up.
+As part of it, added a collisions algorithm.
+
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
 
