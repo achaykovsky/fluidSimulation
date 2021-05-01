@@ -17,6 +17,7 @@ void settings()
 void setup() 
 {
   createGUI();
+  frameRate(20);
 }
 
 void draw() 
@@ -34,7 +35,7 @@ void draw()
     currentFluid.grid.particlesMatrix(currentFluid.particles);
     currentFluid.grid.sortParticles(currentFluid.particles);
     currentFluid.grid.initialize(currentFluid.particles);
-    currentFluid.calculatePressure();  //<>//
+    currentFluid.calculatePressure(); //<>//
     currentFluid.calculateForces();
     p.updateVelocity(currentFluid.getTimeStep());
     currentFluid.boundaries();

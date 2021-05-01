@@ -5,12 +5,17 @@ class Particle
     PVector position = new PVector(1150,180);   
     PVector velocity = new PVector (0.1,0.2);
     PVector gravAcceleration = new PVector (0.0, 9.8);
-    PVector gravForce = new PVector (0.0, 0.0);
+    PVector gravity = new PVector (0.0, 0.0);
+    PVector surfaceTension = new PVector(0,0);
+    PVector viscosity = new PVector(0,0);
+    PVector pressureForce = new PVector(0,0);
+    PVector totalForce = new PVector(0,0);
     PVector dVelocity = new PVector(0,0);
     color colour = color(30,193,250);
+    float pressure;
+    float scale;
     float mass;
     float density;
-    float pressure;
     float restDensity;
   
   //c'tor for the update from GUI option
@@ -20,10 +25,10 @@ class Particle
     this.dVelocity.set(0,0);
     this.velocity.set(0.1,0.2);
     this.colour = color(30,193,250);
+    this.pressureForce.set(0,0);
     this.mass = _mass;
     this.restDensity = _restDensity;
     this.density = 0;
-    this.pressure = 0;
   }
 
   //empty c'tor
@@ -34,7 +39,7 @@ class Particle
     this.colour = color(30,193,250);
     this.mass = 0;
     this.density = 0;
-    this.pressure = 0;
+    this.pressureForce.set(0,0);
   }
   
   //copy c'tor
@@ -47,7 +52,7 @@ class Particle
     this.mass = particle.mass;
     this.restDensity = particle.restDensity;
     this.density = particle.density;
-    this.pressure = particle.pressure;
+    this.pressureForce = particle.pressureForce;
    }
   
     void display(float h, int index) 
@@ -58,6 +63,27 @@ class Particle
        //noStroke();
        circle(position.x, position.y, scale);
        //text(index, position.x, position.y);
+       
+       fill(#FF8103);//orange
+       line(position.x, position.y, position.x + surfaceTension.x, position.y + surfaceTension.y);
+       //fill(#FF8103);//orange
+       text("ST", position.x + surfaceTension.x, position.y + surfaceTension.y);
+       
+       fill(#0308FF);//blue
+       line(position.x, position.y, position.x + gravity.x, position.y + gravity.y);
+       //fill(#0308FF);//blue
+       text("g", position.x + gravity.x, position.y + gravity.y);
+       
+       fill(#FF0346);//red
+       text("v",  position.x + viscosity.x, position.y + viscosity.y);
+       line(position.x, position.y, position.x + viscosity.x, position.y + viscosity.y);
+       //fill(#FF0346);//red
+       //text("v",  position.x + viscosity.x, position.y + viscosity.y);
+       
+       fill(#006429);//green
+       line(position.x, position.y, position.x + pressureForce.x, position.y + pressureForce.y);
+       //fill(#006429);//green
+       text("p", position.x + pressureForce.x, position.y + pressureForce.y);
     }
     
 
@@ -82,6 +108,10 @@ class Particle
       return density;
     }
     
+    PVector getPressureForce()
+    {
+      return pressureForce;
+    }
     float getPressure()
     {
       return pressure;
@@ -115,15 +145,16 @@ class Particle
       density = _density;
     }
     
+    void setXVelocity(float _xVelocity) 
+    {
+      velocity.x = _xVelocity;
+    }
+    
     void setYVelocity(float _yVelocity) 
     {
       velocity.y = _yVelocity;
     }
     
-    void setXVelocity(float _xVelocity) 
-    {
-      velocity.x = _xVelocity;
-    }
   
     //rest density will be updated from the GUI
     void setPressure() 
