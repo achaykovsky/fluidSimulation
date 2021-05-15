@@ -131,6 +131,13 @@ As part of it, added a collisions algorithm.
 1. Still working on the piling up.
 2. Added forces arrows
 
+## 28th Week:
+1. Changed the algorithm for the SPH 
+2. Fixed it to pile up.
+
+
+
+
 # SPH Summary
 The summary is based on the article that is attached [here.](https://people.cs.clemson.edu/~dhouse/courses/817/papers/mueller03.pdf)
 
