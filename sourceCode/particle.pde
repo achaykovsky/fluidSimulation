@@ -188,7 +188,8 @@ class Particle
     void updateVelocity(Particle particle,float timeStep)
     {
         particle.setVelocity(PVector.sub(particle.getPos(), particle.previousPosition));
-        particle.setVelocity(PVector.div(particle.getVelocity(),timeStep));
+        //particle.setVelocity(PVector.div(particle.getVelocity(),timeStep));
+        particle.velocity.div(timeStep);
     }
     
 }
