@@ -50,13 +50,6 @@ class ParticleSpace //<>//
       }
     }
   
-    //void clearGrid() 
-    //{
-    //  for (Hash H:hashTable) 
-    //  {
-    //    H.particles.clear();
-    //  }
-    //}
 }
   
 
