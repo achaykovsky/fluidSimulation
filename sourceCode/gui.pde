@@ -245,7 +245,7 @@ public void createGUI(){
   lblParticlesNumber.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   lblParticlesNumber.setText("Quantity Options");
   lblParticlesNumber.setOpaque(false);
-  sliderMouseParticles = new GSlider(this, 48, 739, 107, 59, 10.0);
+  sliderMouseParticles = new GSlider(this, 48, 726, 107, 59, 10.0);
   sliderMouseParticles.setShowValue(true);
   sliderMouseParticles.setShowLimits(true);
   sliderMouseParticles.setLimits(1, 0, 100);
