@@ -33,11 +33,9 @@
     {
       createGUI();
       currentFluid = new Fluid(timeStep, kernelRadius);
-      //GeneralProperties currentSimulation = new GeneralProperties();
       currentFluid.createInitialState();
       currentSimulation.setMousePressedTimes(mousePressedTimes);
       currentSimulation.setStepsPerFrame(stepsPerFrame);
-     // currentSimulation.initializeParams();
     }
 
     void draw() 
@@ -46,7 +44,6 @@
       stroke(0,0,0);
       strokeWeight(3);
       rect(xMin,yMin,windoWidth,windowHeight);
-      //fill(0,200,250);
       fill(#71E4FF);
       strokeWeight(1);
       line(550, 0, 550, height);//the main vertical seperator
