@@ -18,7 +18,7 @@ class Fluid //<>//
   {
     particles = new ArrayList<Particle>();
     gravity.mult(timeStep);
-    grid = new ParticleSpace(windoWidth, windowHeight, h); //(680, 675, h)
+    grid = new ParticleSpace(windoWidth, windowHeight, h); 
   }
   
     Fluid(float timeStep, float h) 
@@ -27,16 +27,7 @@ class Fluid //<>//
     gravity.mult(timeStep);
     this.timeStep = timeStep;
     this.h = h;
-    grid = new ParticleSpace(windoWidth, windowHeight, h);//(680, 675, h)
-  }
-  
-  //the GUI option
-  void updateParticles(float _restDensity)
-  {
-    particles = new ArrayList<Particle>();
-    gravity.mult(timeStep);
-    restDensity = _restDensity;
-    grid = new ParticleSpace(windoWidth, windowHeight, h);//(680, 675, h)
+    grid = new ParticleSpace(windoWidth, windowHeight, h);
   }
   
   
@@ -108,38 +99,29 @@ class Fluid //<>//
     void constructRightWall()
     {
       for (float y = yMin; y < yMax; y += kernelRadius * 0.1) 
-      {
         currentFluid.particles.add(new Particle(xMax, y, false));
-      }
     }
     
     void constructLeftWall()
     {
       for (float y = yMin; y < yMax; y += kernelRadius * 0.1) 
-      {
         currentFluid.particles.add(new Particle(xMin, y, false));
-      }
     }
     
     void constructFloor()
     {
       for (float x = xMin; x < xMax; x += kernelRadius * 0.1) 
-      {
         //creating the horizontal "floor"
         currentFluid.particles.add(new Particle(x, yMax, false));
-      }
     }
     
     void constructCeiling()
     {
       for (float x = xMin; x < xMax; x += kernelRadius * 0.1) 
-      {
         //creating the horizontal "ceiling"
         currentFluid.particles.add(new Particle(x, yMin, false));
-      }
     }
     
-
     
     //showing all the particles
     void displayFluid() 
@@ -148,6 +130,7 @@ class Fluid //<>//
         particle.displayParticle();
     }
     
+    //Algorithm 1
     void simulationStep() 
     {
       forces.calculateGravityForce(particles);
@@ -161,7 +144,7 @@ class Fluid //<>//
       
       forces.calculateParticlesPressure(particles);
       boundaries(particles);
-      forces.updateVelocity(particles, this.timeStep);
+      forces.updateVelocity(particles);
     }
   
   
