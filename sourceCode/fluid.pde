@@ -1,74 +1,75 @@
-class Fluid
+class Fluid //<>//
 {
-  int particlesNumber = 100;
-  float h = 1;
-  float restDensity = 0.05;
-  float timeStep = 0.1; 
-  float fluidViscosity = 0.1;
-  
-  Forces forces = new Forces(h);
-  //Collisions collisions = new Collisions();
-  Particle[] particles = new Particle[particlesNumber];
-  ParticleSpace grid = new ParticleSpace(680, 675, h);
-  
+  float h;
+  float restDensity = 10;
+  float k = 0.008;
+  float kNear = 0.01;
+  PVector gravity = new PVector(0, 0.01);;
+  float timeStep;
+  float sigma = 0.1;
+  float beta = 0.003;
+
+  Forces forces = new Forces();
+  ParticleSpace grid = new ParticleSpace(windoWidth, windowHeight, h);
+  ArrayList<Particle> particles;
   
   //empty c'tor
   Fluid()
   {
-    for (int i = 0; i < particles.length; i++) 
-    {
-      PVector position = new PVector(1150,75);
-      float mass = 0.3;
-      Particle initializer = new Particle(position.x + i*random(15), position.y + i*random(10), mass, restDensity);
-      particles[i] = initializer; //<>//
-    }
+    particles = new ArrayList<Particle>();
+    gravity.mult(timeStep);
+    grid = new ParticleSpace(windoWidth, windowHeight, h); //(680, 675, h)
+  }
+  
+    Fluid(float timeStep, float h) 
+  {
+    particles = new ArrayList<Particle>();
+    gravity.mult(timeStep);
+    this.timeStep = timeStep;
+    this.h = h;
+    grid = new ParticleSpace(windoWidth, windowHeight, h);//(680, 675, h)
   }
   
   //the GUI option
-  void updateParticles(int newParticlesNum, float newMass, float newRestDensity)
+  void updateParticles(float _restDensity)
   {
-    for (int i = 0; i < newParticlesNum; i++) 
-    {
-      PVector position = new PVector(1150,75);
-      float mass = newMass;
-      Particle initializer = new Particle(position.x + i*random(15), position.y + i*random(10), mass, newRestDensity);
-      currentFluid.particles[i] = initializer;
-    }
+    particles = new ArrayList<Particle>();
+    gravity.mult(timeStep);
+    restDensity = _restDensity;
+    grid = new ParticleSpace(windoWidth, windowHeight, h);//(680, 675, h)
   }
   
-
   
   //setters
-   void setParticlesNumber(int _particlesNumber) 
-    {
-      particlesNumber = _particlesNumber;
-      particles = (Particle[]) expand(particles,_particlesNumber);
-    }
-    
     void setRestDensity(float _restDensity) 
     {
-      restDensity = _restDensity;
+      this.restDensity = _restDensity;
     }
     
     void setH(float _h) 
     {
-      h = _h;
+      this.h = _h;
     }
     
     void setTimeStep(float _timeStep)
     {
-      timeStep = _timeStep;
+      this.timeStep = _timeStep;
     }
     
-    void setFluidViscosity(float _fluidViscosity)
+    void setBeta(float _beta)
     {
-      fluidViscosity = _fluidViscosity;
+      this.beta = _beta;
+    }
+   
+    void setSigma(float _sigma)
+    {
+      this.sigma = _sigma;
     }
     
    //getters
    int getParticlesNumber() 
     {
-      return particlesNumber;
+      return particles.size();
     }
     
     float getTimeStep() 
@@ -85,296 +86,110 @@ class Fluid
     {
       return restDensity;
     }
-
-    float getFluidViscosity() 
+    
+    float getBeta() 
     {
-      return fluidViscosity;
+      return beta;
+    }
+    
+    float getSigma() 
+    {
+      return sigma;
     }
 
-  
-  void calculatePressure() 
-  {
-    for (int i = 0; i < particles.length; ++i) 
+    //creating the initial state of the water
+    void createInitialState() 
     {
-      int inc = 0;
-      //interactions with particles in the same index
-      while ((particlesNumber > (i + inc)) && (particles[i].getIndex() == particles[i + inc].getIndex()))
-      {
-        if ((i + inc) < particlesNumber)
-        {
-          forces.calculateDensity(particles[i], particles[i + inc]);
-          inc++;
-        }
-      }
-      
-      //interactions with particles in neighboring index
-      if(grid.hasBottomLeft(particles[i].getIndex()))
-      {
-        inc = 0;
-        i = grid.getBottomLeftPosition(particles[i].getIndex());
-        while ((particlesNumber > (i + inc)) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
-        {
-          forces.calculateDensity(particles[i], particles[i + inc]);
-          inc++;
-        }
-      }
-      if (grid.hasBottom(particles[i].getIndex())) 
-      {
-        inc = 0;
-        i = grid.getBottomPosition(particles[i].getIndex());
-        while ((particlesNumber > (i + inc)) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
-        {
-          forces.calculateDensity(particles[i], particles[i + inc]);
-          inc++;
-        }
-      }
-      if (grid.hasBottomRight(particles[i].getIndex())) 
-      {
-        inc = 0;
-        i = grid.getBottomRightPosition(particles[i].getIndex());
-        while ((particlesNumber > (i + inc)) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
-        {
-          forces.calculateDensity(particles[i], particles[i + inc]);
-          inc++;
-        }
-      }
-  
-      if (grid.hasRight(particles[i].getIndex())) 
-      {
-        inc = 0;
-        i = grid.getRightPosition(particles[i].getIndex());
-        while ((particlesNumber > i + inc) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
-        {
-          forces.calculateDensity(particles[i], particles[i + inc]);
-          inc++;
-        }
-      }
-      
-      if (grid.hasLeft(particles[i].getIndex())) 
-      {
-        inc = 0;
-        i = grid.getLeftPosition(particles[i].getIndex());
-        while ((particlesNumber > i + inc) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
-        {
-          forces.calculateDensity(particles[i], particles[i + inc]);
-          inc++;
-        }
-      }
-      
-       if (grid.hasTop(particles[i].getIndex())) 
-      {
-        inc = 0;
-        i = grid.getTopPosition(particles[i].getIndex());
-        while ((particlesNumber > i + inc) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
-        {
-          forces.calculateDensity(particles[i], particles[i + inc]);
-          inc++;
-        }
-      }
-      
-      if (grid.hasTopRight(particles[i].getIndex())) 
-      {
-        inc = 0;
-        i = grid.getTopRightPosition(particles[i].getIndex());
-        while ((particlesNumber > i + inc) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
-        {
-          forces.calculateDensity(particles[i], particles[i + inc]);
-          inc++;
-        }
-      }
-      
-      if (grid.hasTopLeft(particles[i].getIndex())) 
-      {
-        inc = 0;
-        i = grid.getTopLeftPosition(particles[i].getIndex());
-        while ((particlesNumber > i + inc) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
-        {
-          forces.calculateDensity(particles[i], particles[i + inc]);
-          inc++;
-        }
-      }
-      particles[i].setPressure();
+      constructFloor();
+      constructRightWall();
+      constructLeftWall();
     }
-  }
-  
-  void calculateForces() 
-  {
-    for (int i = 0; i < particles.length; i++) 
+    
+    void constructRightWall()
     {
-      int index = i;
-      int inc = 0;
-  
-      //interactions with particles in the same index
-      while ((particlesNumber > index + inc) && (particles[i].getIndex() == particles[i + inc].getIndex())) 
+      for (float y = yMin; y < yMax; y += kernelRadius * 0.1) 
       {
-        if (i + inc < particlesNumber) 
-        {
-          //calculates the forces that work on the two particles
-          forces.calculateParticlesPressure(particles[i], particles[i + inc]);
-          forces.calculateViscosity(particles[i], particles[i + inc]);
-          forces.calculateSurfaceTension(particles[i], particles[i + inc]);
-          forces.calculateGravityForce(particles[i]);
-          forces.calculateGravityForce(particles[i + inc]);
-          //collisions.detectCollisions(particles);
-          inc++;
-        }
+        currentFluid.particles.add(new Particle(xMax, y, false));
       }
-      
-      //interactions with particles in the neighboring indices based on their position.
-      if (grid.hasBottomLeft(particles[i].getIndex())) 
+    }
+    
+    void constructLeftWall()
+    {
+      for (float y = yMin; y < yMax; y += kernelRadius * 0.1) 
       {
-        inc = 0;
-        index = grid.getBottomLeftPosition(particles[i].getIndex());
-        while ((particlesNumber > index + inc) && (particles[index].getIndex() == particles[index + inc].getIndex())) 
-        {
-          forces.calculateParticlesPressure(particles[i], particles[index + inc]);
-          forces.calculateViscosity(particles[i], particles[index + inc]);
-          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
-          forces.calculateGravityForce(particles[i]);
-          forces.calculateGravityForce(particles[i + inc]);
-          //collisions.detectCollisions(particles);
-          inc++;
-        }
+        currentFluid.particles.add(new Particle(xMin, y, false));
       }
-  
-      if (grid.hasBottom(particles[i].getIndex())) 
+    }
+    
+    void constructFloor()
+    {
+      for (float x = xMin; x < xMax; x += kernelRadius * 0.1) 
       {
-        inc = 0;
-        index = grid.getBottomPosition(particles[i].getIndex());
-        while ((particlesNumber > index + inc) && (particles[index].getIndex() == particles[index + inc].getIndex())) 
-        {
-          forces.calculateParticlesPressure(particles[i], particles[index + inc]);
-          forces.calculateViscosity(particles[i], particles[index + inc]);
-          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
-          forces.calculateGravityForce(particles[i]);
-          forces.calculateGravityForce(particles[i + inc]);
-          //collisions.detectCollisions(particles);
-          inc++;
-        }
+        //creating the horizontal "floor"
+        currentFluid.particles.add(new Particle(x, yMax, false));
       }
-  
-      if (grid.hasBottomRight(particles[i].getIndex())) 
+    }
+    
+    void constructCeiling()
+    {
+      for (float x = xMin; x < xMax; x += kernelRadius * 0.1) 
       {
-        inc = 0;
-        index = grid.getBottomRightPosition(particles[i].getIndex());
-        while ((particlesNumber > index + inc) && (particles[index].getIndex() == particles[index + inc].getIndex())) 
-        {
-          forces.calculateParticlesPressure(particles[i], particles[index + inc]);
-          forces.calculateViscosity(particles[i], particles[index + inc]);
-          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
-          forces.calculateGravityForce(particles[i]);
-          forces.calculateGravityForce(particles[i + inc]);
-          //collisions.detectCollisions(particles);
-          inc++;
-        }
+        //creating the horizontal "ceiling"
+        currentFluid.particles.add(new Particle(x, yMin, false));
       }
-  
-      if (grid.hasRight(particles[i].getIndex())) 
-      {
-        inc = 0;
-        index = grid.getRightPosition(particles[i].getIndex());
-        while ((particlesNumber > index + inc) && (particles[index].getIndex() == particles[index + inc].getIndex())) 
-        {
-          forces.calculateParticlesPressure(particles[i], particles[index + inc]);
-          forces.calculateViscosity(particles[i], particles[index + inc]);
-          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
-          forces.calculateGravityForce(particles[i]);
-          forces.calculateGravityForce(particles[i + inc]);
-          //collisions.detectCollisions(particles);
-          inc++;
-        }
-      }
+    }
+    
 
-      if (grid.hasTopLeft(particles[i].getIndex())) 
-      {
-        inc = 0;
-        index = grid.getRightPosition(particles[i].getIndex());
-        while ((particlesNumber > index + inc) && (particles[index].getIndex() == particles[index + inc].getIndex())) 
-        {
-          forces.calculateParticlesPressure(particles[i], particles[index + inc]);
-          forces.calculateViscosity(particles[i], particles[index + inc]);
-          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
-          forces.calculateGravityForce(particles[i]);
-          forces.calculateGravityForce(particles[i + inc]);
-          //collisions.detectCollisions(particles);
-          inc++;
-        }
-      }
-      
-      if (grid.hasTop(particles[i].getIndex())) 
-      {
-        inc = 0;
-        index = grid.getTopPosition(particles[i].getIndex());
-        while ((particlesNumber > index + inc) && (particles[index].getIndex() == particles[index + inc].getIndex())) 
-        {
-          forces.calculateParticlesPressure(particles[i], particles[index + inc]);
-          forces.calculateViscosity(particles[i], particles[index + inc]);
-          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
-          forces.calculateGravityForce(particles[i]);
-          forces.calculateGravityForce(particles[i + inc]);
-          //collisions.detectCollisions(particles);
-          inc++;
-        }
-      }
-      
-      if (grid.hasTopRight(particles[i].getIndex())) 
-      {
-        inc = 0;
-        index = grid.getTopRightPosition(particles[i].getIndex());
-        while ((particlesNumber > index + inc) && (particles[index].getIndex() == particles[index + inc].getIndex())) 
-        {
-          forces.calculateParticlesPressure(particles[i], particles[index + inc]);
-          forces.calculateViscosity(particles[i], particles[index + inc]);
-          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
-          forces.calculateGravityForce(particles[i]);
-          forces.calculateGravityForce(particles[i + inc]);
-          //collisions.detectCollisions(particles);
-          inc++;
-        }
-      }
-      if (grid.hasLeft(particles[i].getIndex())) 
-      {
-        inc = 0;
-        index = grid.getLeftPosition(particles[i].getIndex());
-        while ((particlesNumber > index + inc) && (particles[index].getIndex() == particles[index + inc].getIndex())) 
-        {
-          forces.calculateParticlesPressure(particles[i], particles[index + inc]);
-          forces.calculateViscosity(particles[i], particles[index + inc]);
-          forces.calculateSurfaceTension(particles[i], particles[index + inc]);
-          forces.calculateGravityForce(particles[i]);
-          forces.calculateGravityForce(particles[i + inc]);
-          //collisions.detectCollisions(particles);
-          inc++;
-        }
-      }
-      particles[i].accelerate(0, particles[i].getDensity());
+    
+    //showing all the particles
+    void displayFluid() 
+    {
+      for (Particle particle : particles) 
+        particle.displayParticle();
     }
-  }
+    
+    void simulationStep() 
+    {
+      forces.calculateGravityForce(particles);
+      forces.calculateViscosity(particles);
+      forces.updatePredictedPosition(particles);
+      
+      // double density relaxation
+      // prepare search for neighbors:
+      for (Particle particle : particles) 
+        grid.addParticle(particle);
+      
+      forces.calculateParticlesPressure(particles);
+      boundaries(particles);
+      forces.updateVelocity(particles, this.timeStep);
+    }
+  
   
   //the function checks if the particles are at the boundary, and the reorders them to be in it
-  void boundaries()
+  void boundaries(ArrayList<Particle> particles)
   {
-    for (int i = 0; i < particles.length; i++) 
+    
+    for (Particle particle : particles) 
     {
-      if (particles[i].getPos().x <= 600) 
+      if (particle.getPos().x < xMin)
       {
-        particles[i].setX(600.1);
-        particles[i].setXVelocity(particles[i].getVelocity().x*(-0.5));
+        particle.position.x = xMin + 0.5;
+        particle.setXVelocity(particle.getVelocity().x * -1);
       }
-      if (particles[i].getPos().x >= 1280) 
+      if (particle.getPos().x > xMax)
       {
-        particles[i].setX(1279.9);
-        particles[i].setXVelocity(particles[i].getVelocity().x*(-0.5));
+        particle.position.x = xMax - 0.1;
+        particle.setXVelocity(particle.getVelocity().x * -1);
       }
-      if (particles[i].getPos().y <= 75) 
+      if (particle.getPos().y < yMin) 
       {
-        particles[i].setY(75.1);
-        particles[i].setYVelocity(particles[i].getVelocity().y*(-0.5));
+        particle.position.y = yMin + 0.5;
+        particle.setYVelocity(particle.getVelocity().y * -1);
       }
-      if (particles[i].getPos().y >= 750) 
+      if (particle.getPos().y > yMax)
       {
-        particles[i].setY(749.9);
-        particles[i].setYVelocity(particles[i].getVelocity().y*(-0.5));
+        particle.position.y = yMax - 0.1;
+        particle.setYVelocity(particle.getVelocity().y * -1);
       }
     }
   }
