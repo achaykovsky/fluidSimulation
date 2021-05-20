@@ -85,7 +85,7 @@ public void createGUI(){
   G4P.messagesEnabled(false);
   G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
   G4P.setMouseOverEnabled(false);
-  surface.setTitle("Controller Window");
+  surface.setTitle("SPH");
   lblHeader = new GLabel(this, 41, 46, 396, 42);
   lblHeader.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   lblHeader.setText("SPH Fluid Simulation");
