@@ -48,7 +48,6 @@ class GeneralProperties
         lblCurrStepsPerFrame.setFont(new Font("Arial", Font.PLAIN, 15));
         lblCurrParticlesMouseClick.setText("On Mouse Click Particles: " + String.format("%d",mousePressedTimes));
         lblCurrParticlesMouseClick.setFont(new Font("Arial", Font.PLAIN, 15));
-        
     }
    
   //currentSimulation.setStepsPerFrame(stepsPerFrameSlider.getValueI());
@@ -67,10 +66,8 @@ class GeneralProperties
           for (int i = 1; i <= _mousePressedTimes; i++) 
           {
             if ((mouseX > xMin) && (mouseX < xMax) && (mouseY > yMin) && (mouseY < yMax))
-              currentFluid.particles.add(new Particle(mouseX + random(kernelRadius), mouseY + random(kernelRadius), false));
+              currentFluid.particles.add(new Particle(mouseX + random(currentFluid.h), mouseY + random(currentFluid.h), false));
           }
         }
       }
-  
-  
 }

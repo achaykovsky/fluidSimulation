@@ -49,10 +49,10 @@ class Particle
     void displayParticle() 
     {
         strokeWeight(10);
-        if (rigid) 
+        if (isRigid()) 
             stroke(1);
         else 
-            stroke(10, 200, 255 - pressure * 2000);
+            stroke(10, 200, 255 - pressure * 1500);
         point(position.x, position.y);
     }
     
@@ -89,10 +89,20 @@ class Particle
       return velocity;
     }
     
+    PVector getdx()
+    {
+      return dx;
+    }
+    
+    boolean isRigid() 
+    {
+      return rigid;
+    }
+
+    
     
     
     //setters
-    
     void setPos(PVector _pos) 
     {
       position.x = _pos.x;
@@ -137,15 +147,26 @@ class Particle
       velocity.y = _velocity.y;
     }
     
+    void setdx(PVector _dx) 
+    {
+      dx.x = _dx.x;
+      dx.y = _dx.y;
+    }
+    
+    void setRigid(boolean _rigid) 
+    {
+      rigid = _rigid;
+    }
+    
   
     //rest density will be updated from the GUI
-    // compute pressure
+    // compute pressure: formula (2)
     void setPressure() 
     {
       pressure = currentFluid.k * (density - restDensity);
     }
     
-    //compute near-pressure:
+    //compute near-pressure: formula (5)
     void setNearPressure() 
     {
       pressureNear = currentFluid.kNear * densityNear;

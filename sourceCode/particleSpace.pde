@@ -15,9 +15,7 @@ class ParticleSpace //<>//
       hashTable = new Hash[gridSize];
   
       for (int i = 0; i < hashTable.length; i++) 
-      {
         hashTable[i] = new Hash();
-      }
     }
   
     Hash getHash(float x, float y) 
@@ -49,7 +47,6 @@ class ParticleSpace //<>//
         }
       }
     }
-  
 }
   
 

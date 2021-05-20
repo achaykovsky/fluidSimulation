@@ -28,8 +28,8 @@ class Forces
     for (Particle particle : particles) 
     {
       particle.findNeighbors(particles, currentFluid.h); 
-      particle.density = 0;
-      particle.densityNear = 0;
+      particle.setDensity(0);
+      particle.setDensityNear(0);
       
       calculateDensity(particle);
 
@@ -37,7 +37,7 @@ class Forces
 
       particle.setNearPressure();
 
-      particle.dx.set(0,0);
+      particle.setdx(new PVector(0,0));
       for (Particle particleNeighbor : particle.neighbors) 
       {
         PVector distanceVec = PVector.sub(particleNeighbor.getPos(), particle.getPos());
@@ -48,13 +48,15 @@ class Forces
           distanceVec.normalize();
           PVector D = distanceVec;
           D.mult(pow(currentFluid.timeStep,2) * (particle.getPressure() * (1-q) + particle.getPressureNear() * pow((1-q),2)));
-          if (particleNeighbor.rigid != true) 
+          //note: here in the original formula in the article, D supposed to be divided by 2.
+          // I discovered that removing it makes it look better (at least in my version, in processing).
+          if (particleNeighbor.isRigid() != true) 
             particleNeighbor.addPos(D);
-          particle.dx.sub(D);
+          particle.setdx(PVector.sub(particle.getdx(),D));
         }
       } 
-      if (particle.rigid != true) 
-        particle.addPos(particle.dx);
+      if (particle.isRigid() != true) 
+        particle.addPos(particle.getdx());
     }
   }
   
@@ -111,8 +113,8 @@ class Forces
   {
     for (Particle particle : particles) 
     {
-      if (particle.rigid != true) 
-        particle.getVelocity().add(currentFluid.gravity);
+      if (particle.isRigid() != true) 
+        particle.getVelocity().add(currentFluid.getGravity());
     }
   }
   

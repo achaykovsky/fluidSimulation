@@ -87,6 +87,11 @@ class Fluid //<>//
     {
       return sigma;
     }
+    
+   PVector getGravity() 
+    {
+      return gravity;
+    }
 
     //creating the initial state of the water
     void createInitialState() 
@@ -98,26 +103,26 @@ class Fluid //<>//
     
     void constructRightWall()
     {
-      for (float y = yMin; y < yMax; y += kernelRadius * 0.1) 
+      for (float y = yMin; y < yMax; y += h * 0.1) 
         currentFluid.particles.add(new Particle(xMax, y, false));
     }
     
     void constructLeftWall()
     {
-      for (float y = yMin; y < yMax; y += kernelRadius * 0.1) 
+      for (float y = yMin; y < yMax; y += h * 0.1) 
         currentFluid.particles.add(new Particle(xMin, y, false));
     }
     
     void constructFloor()
     {
-      for (float x = xMin; x < xMax; x += kernelRadius * 0.1) 
+      for (float x = xMin; x < xMax; x += h * 0.1) 
         //creating the horizontal "floor"
         currentFluid.particles.add(new Particle(x, yMax, false));
     }
     
     void constructCeiling()
     {
-      for (float x = xMin; x < xMax; x += kernelRadius * 0.1) 
+      for (float x = xMin; x < xMax; x += h * 0.1) 
         //creating the horizontal "ceiling"
         currentFluid.particles.add(new Particle(x, yMin, false));
     }
